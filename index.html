@@ -4,6 +4,331 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pulse — System Design Document</title>
+<style>
+/* ================================================================
+   chatbot.css — Pulse AI Chat Panel
+   Link this into any page: <link rel="stylesheet" href="/chatbot.css">
+   ================================================================ */
+
+/* ── Floating action button ─────────────────────────────────── */
+.chat-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  background: #1b1f3b;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.22), 0 2px 8px rgba(0,0,0,.12);
+  transition: box-shadow .25s, transform .15s;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+.chat-fab:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,.22), 0 0 20px rgba(16,185,129,.3);
+  transform: scale(1.04);
+}
+.chat-fab:active { transform: scale(.96); }
+.chat-fab-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.chat-fab-label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 700;
+  transition: max-width .45s ease, padding-right .45s ease;
+}
+.chat-fab:hover .chat-fab-label { max-width: 120px; padding-right: 18px; }
+.chat-fab-sparkle { width: 20px; height: 20px; color: #34d399; }
+
+/* ── Overlay ─────────────────────────────────────────────────── */
+.chat-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: rgba(0,0,0,.22);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+}
+.chat-overlay.visible { opacity: 1; pointer-events: all; }
+
+/* ── Panel ───────────────────────────────────────────────────── */
+.chat-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 420px;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  box-shadow: -20px 0 60px rgba(0,0,0,.13), -4px 0 20px rgba(0,0,0,.07);
+  border-left: 1px solid rgba(0,0,0,.06);
+  transform: translateX(110%);
+  transition: transform .38s cubic-bezier(.32, 1.2, .6, 1);
+  will-change: transform;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+.chat-panel.open { transform: translateX(0); }
+
+/* ── Panel header ────────────────────────────────────────────── */
+.chat-ph {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  background: #1b1f3b;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  flex-shrink: 0;
+}
+.chat-ph-left { display: flex; align-items: center; gap: 12px; }
+.chat-ph-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(52,211,153,.12);
+  border: 1px solid rgba(52,211,153,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.chat-ph-name   { font-size: 13px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 5px; }
+.chat-ph-status { display: flex; align-items: center; gap: 6px; }
+.chat-ph-dot    { position: relative; width: 6px; height: 6px; flex-shrink: 0; }
+.chat-ph-dot::before,
+.chat-ph-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #34d399;
+}
+.chat-ph-dot::before { animation: chat-ping 1.4s ease-in-out infinite; opacity: .7; }
+@keyframes chat-ping {
+  0%   { transform: scale(1); opacity: .7; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.chat-ph-status-text {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255,255,255,.38);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+}
+.chat-ph-right { display: flex; align-items: center; gap: 8px; }
+.chat-model-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.09);
+}
+.chat-model-by   { font-size: 9px; font-weight: 700; color: rgba(255,255,255,.32); text-transform: uppercase; letter-spacing: .1em; }
+.chat-model-name { font-size: 9px; font-weight: 700; color: #34d399; letter-spacing: .06em; }
+.chat-ph-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, color .15s;
+}
+.chat-ph-close:hover { background: rgba(255,255,255,.09); color: rgba(255,255,255,.8); }
+
+/* ── Messages ────────────────────────────────────────────────── */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: rgba(248,250,252,.5);
+  scroll-behavior: smooth;
+}
+.chat-messages::-webkit-scrollbar { width: 4px; }
+.chat-messages::-webkit-scrollbar-track { background: transparent; }
+.chat-messages::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+.chat-messages::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+
+.chat-row { display: flex; }
+.chat-row.user  { justify-content: flex-end; }
+.chat-row.model { justify-content: flex-start; }
+
+.chat-bubble {
+  max-width: 86%;
+  border-radius: 18px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  animation: chat-bubble-in .22s ease-out;
+}
+@keyframes chat-bubble-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.chat-bubble.user  {
+  background: #1b1f3b;
+  color: #fff;
+  border-radius: 18px 6px 18px 18px;
+}
+.chat-bubble.model {
+  background: #fff;
+  color: #1e293b;
+  border: 1px solid #f1f5f9;
+  border-radius: 6px 18px 18px 18px;
+}
+.chat-bubble.error {
+  background: #fff1f1;
+  color: #b91c1c;
+  border: 1px solid rgba(185,28,28,.15);
+  border-radius: 6px 18px 18px 18px;
+}
+.chat-bubble-time {
+  font-size: 10px;
+  font-weight: 500;
+  margin-top: 6px;
+  opacity: .45;
+}
+.chat-bubble.user .chat-bubble-time { text-align: right; }
+.chat-bubble code {
+  background: #f1f5f9;
+  color: #1b1f3b;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+}
+
+/* ── Loading bubble ──────────────────────────────────────────── */
+.chat-loading-bubble {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #f1f5f9;
+  border-radius: 6px 18px 18px 18px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  animation: chat-bubble-in .22s ease-out;
+}
+.chat-spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #e2e8f0;
+  border-top-color: #10b981;
+  animation: chat-spin .7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes chat-spin { to { transform: rotate(360deg); } }
+.chat-loading-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+/* ── Input area ──────────────────────────────────────────────── */
+.chat-input-area {
+  padding: 14px 16px 16px;
+  border-top: 1px solid #f1f5f9;
+  background: #fff;
+  flex-shrink: 0;
+}
+.chat-input-wrap { position: relative; }
+.chat-msg-input {
+  width: 100%;
+  padding: 13px 52px 13px 16px;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  background: #f1f5f9;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13.5px;
+  color: #1e293b;
+  line-height: 1.55;
+  resize: none;
+  min-height: 52px;
+  max-height: 180px;
+  overflow-y: hidden;
+  transition: border-color .18s, background .18s, box-shadow .18s;
+  outline: none;
+}
+.chat-msg-input::placeholder { color: #94a3b8; }
+.chat-msg-input:focus {
+  background: #fff;
+  border-color: rgba(27,31,59,.14);
+  box-shadow: 0 0 0 4px rgba(27,31,59,.04);
+}
+.chat-send-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #1b1f3b;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(27,31,59,.3);
+  transition: transform .12s, background .15s, opacity .15s;
+}
+.chat-send-btn:hover:not(:disabled) { transform: scale(1.07); background: #141729; }
+.chat-send-btn:active:not(:disabled) { transform: scale(.93); }
+.chat-send-btn:disabled { opacity: .3; cursor: not-allowed; box-shadow: none; }
+.chat-send-btn svg { width: 15px; height: 15px; }
+.chat-input-footer {
+  margin-top: 9px;
+  text-align: center;
+  font-size: 10px;
+  color: #cbd5e1;
+  font-weight: 500;
+  letter-spacing: .03em;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .chat-panel { max-width: 100%; }
+  .chat-model-badge { display: none; }
+}
+
+/* ── Print: hide chatbot entirely ────────────────────────────── */
+@media print {
+  .chat-fab, .chat-overlay, .chat-panel { display: none !important; }
+}
+
+</style>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://analytics.ahrefs.com/analytics.js" data-key="tpp9yqTuK4gX5UE8/KahQA" async></script>
 <style>
@@ -152,7 +477,7 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);c
 .doc-divider{border:none;border-top:1px solid var(--border);margin:40px 0}
 
 /* ── SCROLL TO TOP ── */
-#scroll-top{position:fixed;bottom:24px;right:24px;width:36px;height:36px;background:var(--navy);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;opacity:0;transition:all .2s;pointer-events:none;z-index:60}
+#scroll-top{position:fixed;bottom:24px;right:72px;width:36px;height:36px;background:var(--navy);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;opacity:0;transition:all .2s;pointer-events:none;z-index:60}
 #scroll-top.visible{opacity:1;pointer-events:all}
 #scroll-top:hover{background:var(--navy2)}
 
@@ -5813,6 +6138,429 @@ document.addEventListener('keydown', function(e) {
 
 })();
 /* ===== VISUAL MODE RENDER ENGINE JS END ===== */
+</script>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PULSE AI CHATBOT PANEL
+     Calls POST /api/chat → Express backend → OpenAI API
+     API key is on the server only — never in this file
+════════════════════════════════════════════════════════════════ -->
+
+<!-- Floating trigger button -->
+<button class="chat-fab" id="chatFab" aria-label="Open AI Assistant">
+  <div class="chat-fab-icon">
+    <svg class="chat-fab-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+    </svg>
+  </div>
+  <span class="chat-fab-label">Ask AI</span>
+</button>
+
+<!-- Background overlay -->
+<div class="chat-overlay" id="chatOverlay"></div>
+
+<!-- Chat panel -->
+<div class="chat-panel" id="chatPanel" role="dialog" aria-modal="true" aria-label="AI Assistant">
+
+  <!-- Header -->
+  <div class="chat-ph">
+    <div class="chat-ph-left">
+      <div class="chat-ph-avatar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="chat-ph-name">AI Assistant</div>
+        <div class="chat-ph-status">
+          <div class="chat-ph-dot"></div>
+          <span class="chat-ph-status-text">Online</span>
+        </div>
+      </div>
+    </div>
+    <div class="chat-ph-right">
+      <div class="chat-model-badge">
+        <span class="chat-model-by">Powered by</span>
+        <span class="chat-model-name">Pulse AI</span>
+      </div>
+      <button class="chat-ph-close" id="chatClose" aria-label="Close panel">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Message area -->
+  <div class="chat-messages" id="chatMessages"></div>
+
+  <!-- Input area -->
+  <div class="chat-input-area">
+    <div class="chat-input-wrap">
+      <textarea
+        class="chat-msg-input"
+        id="chatInput"
+        rows="1"
+        placeholder="Ask anything about this document… (Enter to send)"
+        aria-label="Message input"
+      ></textarea>
+      <button class="chat-send-btn" id="chatSend" aria-label="Send message" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+    <div class="chat-input-footer">Pulse AI · Demo Mode</div>
+  </div>
+
+</div>
+
+<script>
+/**
+ * chatbot.js — Pulse AI Chat Panel (static / GitHub Pages version)
+ *
+ * Replaces the OpenAI + Express backend with an intelligent rule-based
+ * assistant that knows the Pulse document inside-out.
+ * No API keys. No server. Works directly from GitHub Pages.
+ */
+
+(function () {
+  'use strict';
+
+  // ── Guard: HTML must exist on this page ───────────────────────────
+  const fab      = document.getElementById('chatFab');
+  const overlay  = document.getElementById('chatOverlay');
+  const panel    = document.getElementById('chatPanel');
+  const closeBtn = document.getElementById('chatClose');
+  const messages = document.getElementById('chatMessages');
+  const msgInput = document.getElementById('chatInput');
+  const sendBtn  = document.getElementById('chatSend');
+
+  if (!fab || !panel) return;
+
+  // Always show the chatbot — no server toggle needed
+  fab.style.display = 'flex';
+  initChatbot();
+
+  // ── Knowledge base ─────────────────────────────────────────────────
+  // Each entry: { patterns: [regex/string], response: string }
+  const KB = [
+
+    // ── Greetings ──
+    {
+      patterns: [/^(hi|hello|hey|sup|yo|howdy|good\s*(morning|afternoon|evening))/i],
+      response: "Hello! 👋 I'm the Pulse AI assistant. I can help you navigate this system design document — ask me about any architecture concept, career path, technology, or section. What would you like to explore?"
+    },
+
+    // ── What is Pulse / document overview ──
+    {
+      patterns: [/what is pulse/i, /what('s| is) this (doc|document|page|site)/i, /tell me about (this|pulse)/i, /overview/i, /summary/i],
+      response: "**Pulse** is a comprehensive system design document covering the full backend engineering stack for a fintech platform.\n\nIt walks through:\n- **Architecture** — microservices, event-driven design, service topology\n- **Data layer** — PostgreSQL, Redis, Kafka, ElasticSearch\n- **APIs** — REST design, authentication, rate limiting\n- **Reliability** — idempotency, circuit breakers, retries\n- **Career paths** — from junior backend to principal/staff engineer\n- **Interview prep** — real questions asked at fintech companies\n\nUse the sidebar to jump to any section, or ask me a specific question!"
+    },
+
+    // ── Microservices ──
+    {
+      patterns: [/microservice/i, /service.mesh/i, /service.topology/i, /monolith/i],
+      response: "**Microservices** in the Pulse architecture are independently deployable services, each owning its own data store.\n\nKey principles covered in the document:\n- **Single Responsibility** — each service does one thing well\n- **Bounded Context** — services don't share databases\n- **API contracts** — services communicate via well-defined REST or event interfaces\n- **Independent deployment** — deploy one service without touching others\n\nCommon pitfalls the document warns about:\n- Distributed monolith (microservices that are tightly coupled)\n- Chatty services (too many synchronous calls between services)\n- Missing observability (logs, metrics, traces)\n\nWant to go deeper on any of these?"
+    },
+
+    // ── Kafka / Event-driven ──
+    {
+      patterns: [/kafka/i, /event.driven/i, /message queue/i, /event stream/i, /pub.?sub/i, /producer|consumer/i],
+      response: "**Kafka** is the backbone of the Pulse event-driven architecture.\n\nCore concepts covered:\n- **Topics** — named streams of records (e.g. `payment.created`, `user.kyc.completed`)\n- **Partitions** — horizontal scaling unit; ordering guaranteed within a partition\n- **Consumer groups** — multiple services can independently consume the same topic\n- **Retention** — events are durable; consumers can replay from any offset\n\nWhy Kafka over a traditional queue?\n- **Decoupling** — producer doesn't know/care about consumers\n- **Replay** — reprocess historical events after a bug fix\n- **Fan-out** — one event triggers multiple downstream services simultaneously\n\nTypical fintech flow: `payment-service` publishes `payment.processed` → `ledger-service`, `notification-service`, and `analytics-service` all consume it independently."
+    },
+
+    // ── PostgreSQL / Database ──
+    {
+      patterns: [/postgres|postgresql/i, /database|db/i, /sql/i, /relational/i, /schema/i, /migration/i],
+      response: "**PostgreSQL** is the primary relational database in the Pulse stack.\n\nKey patterns in the document:\n- **Row-level locking** — for safe concurrent balance updates\n- **Transactions with ACID guarantees** — critical for financial operations\n- **Indexes** — composite indexes on (user_id, created_at) for time-series queries\n- **Partitioning** — range partitioning on date for large transaction tables\n- **Read replicas** — offload analytics/reporting queries from the primary\n\nImportant fintech rule: **never update a financial record in place** — append-only ledger entries with soft deletes.\n\nSchema migration strategy: always backwards-compatible migrations — add columns before removing old ones to enable zero-downtime deployments."
+    },
+
+    // ── Redis / Caching ──
+    {
+      patterns: [/redis/i, /cache|caching/i, /session/i, /rate limit/i],
+      response: "**Redis** serves multiple roles in the Pulse architecture:\n\n1. **Caching** — store computed results (e.g. user balance snapshots) with TTL\n2. **Session storage** — JWT refresh token blacklisting\n3. **Rate limiting** — sliding window counters using `INCR` + `EXPIRE`\n4. **Distributed locks** — `SET key value NX EX 30` for idempotency enforcement\n5. **Pub/Sub** — lightweight real-time notifications within a service\n\nCache invalidation strategies covered:\n- **TTL-based** — simple, eventually consistent\n- **Write-through** — update cache on every DB write (strong consistency)\n- **Cache-aside** — application checks cache first, falls back to DB\n\nGolden rule from the document: **never cache financial balances without a version/timestamp** — stale balance reads in fintech are a serious bug."
+    },
+
+    // ── Authentication / JWT ──
+    {
+      patterns: [/auth|authentication|authoriz/i, /jwt|token/i, /oauth/i, /login/i, /session/i],
+      response: "**Authentication** in the Pulse document covers a modern token-based approach:\n\n**Flow:**\n1. User logs in → server issues short-lived **access token** (15 min) + long-lived **refresh token** (7 days)\n2. Access token is stateless (JWT) — no DB lookup needed\n3. Refresh token is stored in Redis — can be revoked instantly\n4. Logout → add refresh token to Redis blacklist\n\n**JWT best practices highlighted:**\n- Sign with RS256 (asymmetric) — not HS256 — so other services can verify without the private key\n- Include `iat`, `exp`, `sub`, `jti` claims\n- Keep payload small — don't store sensitive data\n- Rotate signing keys regularly\n\n**Common interview question:** *How do you revoke a JWT before it expires?* → Redis blacklist or short TTL + refresh token rotation."
+    },
+
+    // ── Idempotency ──
+    {
+      patterns: [/idempoten/i, /duplicate (payment|request|transaction)/i, /retry/i],
+      response: "**Idempotency** is one of the most critical patterns in fintech — highlighted prominently in the document.\n\n**The problem:** Networks fail. Clients retry. Without idempotency, a payment could be processed twice.\n\n**The solution:**\n1. Client generates a unique `Idempotency-Key` (UUID) per operation\n2. Server checks Redis: has this key been seen before?\n3. If yes → return the cached response immediately (no re-processing)\n4. If no → process the request, store result in Redis with the key\n\n**Implementation details:**\n```\nKey format:   idempotency:{service}:{key}\nTTL:          24 hours (or per your SLA)\nValue:        serialized response JSON\n```\n\n**Idempotency by HTTP method:**\n- `GET`, `PUT`, `DELETE` → naturally idempotent\n- `POST` → requires explicit idempotency keys\n\nThis pattern eliminates double-charges, the most catastrophic bug in a payment system."
+    },
+
+    // ── Circuit breaker ──
+    {
+      patterns: [/circuit.?breaker/i, /fallback/i, /resilience|resilient/i, /fault.toleran/i],
+      response: "**Circuit Breaker** is a resilience pattern the document covers in depth.\n\n**Why it exists:** If an upstream service is failing, hammering it with more requests makes recovery slower for everyone.\n\n**States:**\n- **Closed** (normal) — requests pass through; failures are counted\n- **Open** (tripped) — requests fail immediately; upstream gets breathing room\n- **Half-Open** — after a timeout, a probe request tests if the service recovered\n\n**Configuration example from the document:**\n```\nfailure_threshold:  5 failures in 30 seconds\nopen_duration:      60 seconds\nhalf_open_probes:   1 request\n```\n\n**Paired with:**\n- **Fallbacks** — return cached data or a degraded response when open\n- **Bulkheads** — isolate thread pools so one failing service doesn't starve others\n- **Timeouts** — never wait forever; every external call needs a deadline\n\nLibraries: Hystrix (Java), Polly (.NET), `opossum` (Node.js), Resilience4j."
+    },
+
+    // ── API Design / REST ──
+    {
+      patterns: [/api.?design/i, /rest(ful)?/i, /endpoint/i, /http.*(method|verb)/i, /versioning/i, /pagination/i],
+      response: "**API Design** principles from the Pulse document:\n\n**Resource naming:**\n```\nGET    /v1/accounts/{id}           ← fetch one\nGET    /v1/accounts/{id}/transactions  ← nested resource\nPOST   /v1/payments                ← create (not /createPayment)\nPATCH  /v1/accounts/{id}           ← partial update\nDELETE /v1/accounts/{id}           ← soft delete preferred\n```\n\n**Versioning strategy:**\n- URL versioning (`/v1/`, `/v2/`) — explicit, easy to route\n- Never break existing clients; run old + new versions in parallel during migration\n\n**Pagination:**\n- Cursor-based (preferred for large datasets) — `?after=cursor_token`\n- Offset-based — only for small, stable datasets\n\n**Response envelope:**\n```json\n{ \"data\": {...}, \"meta\": {\"request_id\": \"...\", \"timestamp\": \"...\"} }\n```\n\n**Always include:** request IDs for tracing, consistent error format, meaningful HTTP status codes."
+    },
+
+    // ── Career / Leveling ──
+    {
+      patterns: [/career/i, /lev(el|eling)/i, /junior|mid.?level|senior|staff|principal/i, /promo(tion)?/i, /eng(ineer)?.+(level|path|track)/i],
+      response: "The document has a detailed **career ladder** for backend engineers in fintech:\n\n**L3 — Junior Backend Engineer**\n- Owns individual features end-to-end\n- Writes clean, tested code with guidance\n- Understands the services their team owns\n\n**L4 — Mid-Level Backend Engineer**\n- Owns small systems independently\n- Identifies and fixes reliability issues proactively\n- Mentors interns and L3s\n\n**L5 — Senior Backend Engineer**\n- Designs systems that span multiple services\n- Leads technical decisions for the team\n- Balances speed vs. correctness tradeoffs\n\n**L6 — Staff Engineer**\n- Sets technical direction across teams\n- Identifies org-wide patterns and risks\n- Deeply understands business impact of technical decisions\n\n**L7 — Principal Engineer**\n- Company-wide technical vision\n- External representation (conferences, hiring bar)\n\nThe document emphasizes: **promotion happens when you're already operating at the next level**, not as a reward for time served."
+    },
+
+    // ── Interview prep ──
+    {
+      patterns: [/interview/i, /question/i, /system design.*(interview|question)/i, /how (do you|would you) (design|build|handle)/i],
+      response: "The document includes **interview questions** that fintech companies actually ask. Common themes:\n\n**System Design:**\n- *Design a payment processing system that handles 10,000 TPS with zero double-charges*\n- *How would you design a distributed rate limiter?*\n- *Walk me through your approach to a multi-currency wallet*\n\n**Deep-dive questions:**\n- *How does Kafka guarantee message ordering?*\n- *What's the difference between optimistic and pessimistic locking? When do you use each?*\n- *How do you handle a database migration with zero downtime?*\n- *Explain SAGA pattern vs 2PC for distributed transactions*\n\n**Behavioral / senior:**\n- *Tell me about a time you had to make a reliability vs. speed tradeoff*\n- *How do you convince a team to adopt a new pattern they're resistant to?*\n\n**Quick tips from the document:**\n- Always clarify requirements before designing\n- Start with the data model, not the API\n- Address failure modes explicitly\n- Know your SLAs (p99 latency, uptime targets)"
+    },
+
+    // ── Distributed transactions / SAGA ──
+    {
+      patterns: [/saga/i, /distributed.transact/i, /2pc|two.phase/i, /eventual.?consistent/i],
+      response: "**Distributed Transactions** are one of the hardest problems in fintech — the document covers two main approaches:\n\n**2PC (Two-Phase Commit)**\n- Phase 1: coordinator asks all services to *prepare* (lock resources)\n- Phase 2: coordinator sends *commit* or *rollback*\n- Problem: blocking, slow, coordinator is a SPOF\n- Used in: databases with XA transactions — rarely in microservices\n\n**SAGA Pattern** (recommended)\nA sequence of local transactions, each publishing an event:\n```\npayment-service: debit_account → emits payment.debited\nledger-service:  record_entry  → emits ledger.recorded\nnotify-service:  send_receipt  → emits notification.sent\n```\nIf any step fails → compensating transactions run in reverse.\n\n**Choreography vs Orchestration:**\n- **Choreography** — services react to each other's events (decoupled, harder to trace)\n- **Orchestration** — a central saga orchestrator directs each step (easier to reason about)\n\nThe document recommends orchestration for financial workflows where auditability matters."
+    },
+
+    // ── Observability / Monitoring ──
+    {
+      patterns: [/observab/i, /monitor/i, /log(ging)?/i, /metric/i, /trac(e|ing)/i, /alert/i, /slo|sli|sla/i, /p99|p95|latency/i],
+      response: "**Observability** — the three pillars covered in the document:\n\n**1. Logs**\n- Structured JSON logs (not free-text strings)\n- Always include: `request_id`, `user_id`, `service`, `timestamp`, `level`\n- Ship to: ELK stack (ElasticSearch + Logstash + Kibana) or Datadog\n\n**2. Metrics**\n- Track: request rate, error rate, latency (p50/p95/p99), queue depth\n- Use the **RED method**: Rate, Errors, Duration\n- Tool: Prometheus + Grafana\n\n**3. Traces**\n- Distributed tracing across service calls\n- Propagate `trace_id` in all headers\n- Tool: Jaeger or AWS X-Ray\n\n**SLO/SLI definitions from the document:**\n- SLI — the actual measurement (e.g. *p99 latency of /payments*)\n- SLO — the target (e.g. *p99 < 500ms for 99.9% of requests in 30 days*)\n- SLA — the contractual commitment with penalties\n\nError budget = 100% - SLO target. Burn it down with features; guard it with reliability work."
+    },
+
+    // ── Security ──
+    {
+      patterns: [/securit/i, /vulnerab/i, /injection|xss|csrf|sqli/i, /encrypt/i, /tls|ssl|https/i, /secret/i],
+      response: "**Security** in the Pulse fintech document covers several layers:\n\n**Transport:** TLS 1.3 everywhere — internal service-to-service included (mTLS in production)\n\n**At rest:** AES-256 encryption for PII fields; card numbers stored as tokens only\n\n**OWASP Top 10 addressed:**\n- SQL injection → parameterized queries only, never string concatenation\n- XSS → output encoding, Content-Security-Policy headers\n- CSRF → SameSite cookies, CSRF tokens for state-changing requests\n- Broken auth → short JWT TTLs, Redis-based revocation\n\n**Secrets management:**\n- Never in code or environment files checked into git\n- Use: AWS Secrets Manager, HashiCorp Vault, or GCP Secret Manager\n- Rotate keys on a schedule; alert on access anomalies\n\n**PCI-DSS relevance:** If touching card data, the document emphasizes scope reduction — tokenize early, process in isolated environments, minimize who touches raw PANs."
+    },
+
+    // ── Kubernetes / Deployment ──
+    {
+      patterns: [/kubernetes|k8s/i, /docker|container/i, /deploy/i, /ci.?cd/i, /devops/i, /helm/i, /pod|node/i],
+      response: "**Deployment** architecture in the Pulse document:\n\n**Containerization:**\n- Every service ships as a Docker image\n- Multi-stage Dockerfiles — build layer separate from runtime layer\n- Images < 200MB; no root user in containers\n\n**Kubernetes patterns:**\n- **Deployments** — stateless services with rolling update strategy\n- **StatefulSets** — for services with stable network identity (rare)\n- **HPA** — Horizontal Pod Autoscaler based on CPU or custom metrics\n- **Probes** — liveness (is the process alive?) + readiness (can it serve traffic?)\n\n**Zero-downtime deploys:**\n1. Deploy new version alongside old (canary/blue-green)\n2. Shift traffic gradually (5% → 25% → 100%)\n3. Monitor error rate and latency\n4. Rollback in < 2 minutes if SLO burns\n\n**CI/CD pipeline stages:**\n`lint → unit test → integration test → build image → push to registry → deploy to staging → smoke test → promote to production`"
+    },
+
+    // ── Fintech specific ──
+    {
+      patterns: [/fintech/i, /payment/i, /ledger/i, /wallet/i, /kyc/i, /compliance/i, /regulation/i, /pci/i],
+      response: "**Fintech-specific patterns** covered in the Pulse document:\n\n**Double-entry ledger:**\nEvery financial movement creates two entries — a debit and a credit. The sum of all entries is always zero. This is the accounting invariant that makes your system auditable.\n\n```\nTransaction: User A pays User B $100\n  DEBIT   user_a_account  $100\n  CREDIT  user_b_account  $100\n```\n\n**KYC (Know Your Customer):**\n- Identity verification pipeline: document upload → OCR → liveness check → sanctions screening\n- Async processing via Kafka — don't block the UI waiting for verification\n- Store KYC state in a state machine (PENDING → IN_REVIEW → APPROVED | REJECTED)\n\n**Compliance patterns:**\n- Immutable audit log — append only, never update\n- PII handling — encrypt, minimize access, support right-to-erasure via tokenization\n- Transaction monitoring — flag suspicious patterns via rules engine + ML\n\n**Regulatory mindset:** Build for auditability from day one. It's much harder to retrofit."
+    },
+
+    // ── ElasticSearch / Search ──
+    {
+      patterns: [/elastic(search)?/i, /search/i, /full.?text/i, /index(ing)?/i],
+      response: "**ElasticSearch** in the Pulse architecture handles search and analytics use cases that are a poor fit for PostgreSQL:\n\n**What goes in ElasticSearch:**\n- Full-text transaction search (\"show me all payments to 'Netflix'\") \n- Audit log querying across millions of records\n- Real-time analytics dashboards\n\n**Sync strategy:**\n- PostgreSQL is the **source of truth**\n- ES is a **derived read model** — populate it via Kafka CDC (Change Data Capture)\n- Never write directly to ES from the application\n\n**Index design tips from the document:**\n- One index per entity type (not one giant index)\n- Use aliases to enable zero-downtime reindex\n- Define explicit mappings — don't rely on auto-mapping for production\n\n**Important limitation:** ES is eventually consistent. For balances and critical financial figures, always read from PostgreSQL. ES is for discovery and analytics only."
+    },
+
+    // ── Help / what can you do ──
+    {
+      patterns: [/help/i, /what can you (do|answer|help)/i, /what do you know/i, /topics/i, /capabilities/i],
+      response: "I can help you explore the **Pulse system design document**. Here are the topics I know best:\n\n**Architecture & Infrastructure**\n- Microservices design · Kafka & event-driven patterns · Redis & caching · PostgreSQL\n- Kubernetes & deployment · CI/CD · Observability & monitoring\n\n**Backend Patterns**\n- Idempotency · Circuit breakers · SAGA pattern · Distributed transactions\n- Authentication & JWTs · API design & REST · Rate limiting\n\n**Fintech Specific**\n- Payment processing · Double-entry ledger · KYC flows\n- Compliance & PCI-DSS · Audit logging · Fraud detection patterns\n\n**Career & Growth**\n- Engineering levels (L3–L7) · Promotion criteria\n- Interview prep · System design questions\n\nJust ask me about any of these, or ask a specific question like *\"How does the circuit breaker pattern work?\"* or *\"What's the difference between SAGA and 2PC?\"*"
+    },
+
+    // ── Thanks ──
+    {
+      patterns: [/thank(s|you)/i, /great|awesome|perfect|excellent|nice|helpful/i],
+      response: "Glad I could help! 🙌 Feel free to ask anything else about the Pulse document. If you want to jump to a specific section, the sidebar navigation on the left has everything organized by topic."
+    },
+
+    // ── Short single words that aren't questions ──
+    {
+      patterns: [/^(ok|okay|sure|yep|yup|got it|makes sense|cool|interesting)$/i],
+      response: "Got it! Anything else you'd like me to explain? I'm here for questions on any part of the Pulse document."
+    },
+  ];
+
+  // ── Default fallback ───────────────────────────────────────────────
+  const FALLBACK_RESPONSES = [
+    "That's a great question! I don't have a specific entry for that in my knowledge base, but it's likely covered in the Pulse document — use the sidebar to find the relevant section. If you rephrase your question around a specific concept (like *Kafka*, *idempotency*, *circuit breakers*, or *career levels*), I can give you a detailed answer.",
+    "I want to make sure I give you accurate information. Could you rephrase that? For example, ask about a specific pattern, technology, or section of the document. I know Kafka, Redis, PostgreSQL, microservices, auth, deployment, and career paths very well.",
+    "I'm not sure I caught that exactly — I'm a document-focused assistant. Try asking something like: *\"How does Kafka work?\"*, *\"What is idempotency?\"*, or *\"What are the career levels?\"* and I'll give you a solid answer."
+  ];
+  let fallbackIndex = 0;
+
+  // ── Match a user message to the knowledge base ─────────────────────
+  function findResponse(text) {
+    const t = text.trim();
+    for (const entry of KB) {
+      for (const pattern of entry.patterns) {
+        if (pattern instanceof RegExp ? pattern.test(t) : t.toLowerCase().includes(pattern)) {
+          return entry.response;
+        }
+      }
+    }
+    // Rotate through fallbacks so they don't feel repetitive
+    const r = FALLBACK_RESPONSES[fallbackIndex % FALLBACK_RESPONSES.length];
+    fallbackIndex++;
+    return r;
+  }
+
+  // ── Simulate realistic typing delay ───────────────────────────────
+  function thinkingDelay(text) {
+    // Roughly 40–80ms per word, clamped to 600ms–2200ms
+    const words = text.split(/\s+/).length;
+    return Math.min(Math.max(words * 55, 600), 2200);
+  }
+
+  // ── Initialise chatbot ─────────────────────────────────────────────
+  function initChatbot() {
+    let isLoading = false;
+    let isOpen    = false;
+
+    addAssistantMessage(
+      "Hello! I'm the Pulse AI assistant. I know this document inside and out — ask me about any concept, pattern, career path, or technology covered here. How can I help?"
+    );
+
+    // ── Open / close ─────────────────────────────────────────────────
+    function openPanel() {
+      isOpen = true;
+      panel.classList.add('open');
+      overlay.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function () { msgInput.focus(); }, 400);
+    }
+
+    function closePanel() {
+      isOpen = false;
+      panel.classList.remove('open');
+      overlay.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+
+    fab.addEventListener('click', openPanel);
+    overlay.addEventListener('click', closePanel);
+    closeBtn.addEventListener('click', closePanel);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen) closePanel();
+    });
+
+    // ── Auto-resize textarea ─────────────────────────────────────────
+    msgInput.addEventListener('input', function () {
+      this.style.height = '52px';
+      const h = Math.min(this.scrollHeight, 180);
+      this.style.height = h + 'px';
+      this.style.overflowY = this.scrollHeight > 180 ? 'auto' : 'hidden';
+      sendBtn.disabled = this.value.trim() === '' || isLoading;
+    });
+
+    // ── Send on Enter, newline on Shift+Enter ────────────────────────
+    msgInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSend();
+      }
+    });
+    sendBtn.addEventListener('click', handleSend);
+
+    function handleSend() {
+      const text = msgInput.value.trim();
+      if (!text || isLoading) return;
+
+      msgInput.value = '';
+      msgInput.style.height = '52px';
+      sendBtn.disabled = true;
+
+      addUserMessage(text);
+      respondTo(text);
+    }
+
+    // ── Generate and show response ───────────────────────────────────
+    function respondTo(userText) {
+      const reply   = findResponse(userText);
+      const delay   = thinkingDelay(reply);
+
+      showLoading();
+
+      setTimeout(function () {
+        hideLoading();
+        addAssistantMessage(reply);
+      }, delay);
+    }
+
+    // ── Message rendering ────────────────────────────────────────────
+    function now() {
+      return new Intl.DateTimeFormat('en', {
+        hour: '2-digit', minute: '2-digit',
+      }).format(new Date());
+    }
+
+    // Minimal Markdown: bold, italic, inline code, code blocks, line breaks
+    function lightMd(raw) {
+      return raw
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        // Fenced code blocks
+        .replace(/```[\w]*\n?([\s\S]*?)```/g, function (_, code) {
+          return '<pre style="background:#f1f5f9;border-radius:6px;padding:10px 12px;margin:6px 0;overflow-x:auto;font-family:\'IBM Plex Mono\',monospace;font-size:11.5px;line-height:1.6;color:#1e3a8a;">' + code + '</pre>';
+        })
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g,     '<em>$1</em>')
+        .replace(/`(.+?)`/g,       '<code>$1</code>')
+        .replace(/\n/g, '<br/>');
+    }
+
+    function addUserMessage(text) {
+      const row = document.createElement('div');
+      row.className = 'chat-row user';
+      row.innerHTML =
+        '<div class="chat-bubble user">' +
+          '<div>' + lightMd(text) + '</div>' +
+          '<div class="chat-bubble-time">' + now() + '</div>' +
+        '</div>';
+      messages.appendChild(row);
+      scrollBottom();
+    }
+
+    function addAssistantMessage(text) {
+      const row = document.createElement('div');
+      row.className = 'chat-row model';
+      row.innerHTML =
+        '<div class="chat-bubble model">' +
+          '<div>' + lightMd(text) + '</div>' +
+          '<div class="chat-bubble-time">' + now() + '</div>' +
+        '</div>';
+      messages.appendChild(row);
+      scrollBottom();
+    }
+
+    // Loading state
+    let loadingEl = null;
+
+    function showLoading() {
+      isLoading = true;
+      sendBtn.disabled = true;
+      loadingEl = document.createElement('div');
+      loadingEl.className = 'chat-row model';
+      loadingEl.innerHTML =
+        '<div class="chat-loading-bubble">' +
+          '<div class="chat-spinner"></div>' +
+          '<span class="chat-loading-text">Thinking…</span>' +
+        '</div>';
+      messages.appendChild(loadingEl);
+      scrollBottom();
+    }
+
+    function hideLoading() {
+      isLoading = false;
+      sendBtn.disabled = msgInput.value.trim() === '';
+      if (loadingEl) { loadingEl.remove(); loadingEl = null; }
+    }
+
+    function scrollBottom() {
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+  } // end initChatbot()
+
+})();
+
 </script>
 
 </body>
