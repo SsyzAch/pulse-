@@ -235,6 +235,146 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 
 
+
+/* ===== READING LIST CSS START ===== */
+.rl-block {
+  border: 1px solid var(--border-md);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 24px;
+}
+.rl-header {
+  background: var(--navy);
+  padding: 11px 16px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.rl-header-icon { font-size: 14px; }
+.rl-header-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: .02em;
+  flex: 1;
+}
+.rl-header-count {
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(255,255,255,.12);
+  color: rgba(255,255,255,.7);
+  padding: 1px 8px;
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.rl-body { display: flex; flex-direction: column; }
+.rl-book {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 0 13px;
+  align-items: start;
+}
+.rl-book:last-child { border-bottom: none; }
+.rl-book-num {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.rl-book-main {}
+.rl-book-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+.rl-book-meta {
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.rl-book-author { font-weight: 500; color: var(--text2); }
+.rl-book-sep { color: var(--border-md); }
+.rl-book-year {
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text3);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.rl-book-free {
+  font-size: 10px; font-weight: 700;
+  background: #dcfce7; color: #14532d;
+  border: 1px solid #86efac;
+  padding: 1px 7px; border-radius: 100px;
+}
+.rl-read-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .09em; text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 5px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.rl-chapters { display: flex; flex-direction: column; gap: 4px; }
+.rl-chapter {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.rl-ch-num {
+  font-size: 10px; font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--blue);
+  background: var(--blue-bg);
+  border: 1px solid rgba(29,78,216,.2);
+  padding: 1px 7px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  white-space: nowrap;
+}
+.rl-ch-num.whole {
+  background: var(--green-bg);
+  color: var(--green);
+  border-color: var(--green-border);
+}
+.rl-ch-desc { color: var(--text2); }
+.rl-ch-desc strong { color: var(--text); font-weight: 600; }
+.rl-note {
+  font-size: 11px;
+  color: var(--text3);
+  font-style: italic;
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px dashed var(--border);
+  line-height: 1.5;
+}
+@media print {
+  .rl-block { page-break-inside: avoid; border: 0.5pt solid #ccc !important; }
+  .rl-header { background: #1a1a2e !important; }
+  .rl-book { padding: 8pt 10pt; }
+  .rl-book-title { font-size: 11pt; }
+  .rl-chapter { font-size: 9pt; }
+}
+/* ===== READING LIST CSS END ===== */
+
 /* ===== LAYMAN LAYER CSS START ===== */
 
 /* ── 1. GLOSSARY TOOLTIP ── */
@@ -794,7 +934,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <div class="cover-tag">Career Progression Engine · Backend Fintech Engineering</div>
         <div class="cover-title">Pulse</div>
         <div class="cover-sub">Your Step-by-Step Path to Production Fintech Engineering</div>
-        <div <div class="cover-sub2">A career progression engine — not a tutorial. Every section answers: What do I build next? When am I ready? Where does this lead?</div>
+        <div class="cover-sub2">A career progression engine — not a tutorial. Every section answers: What do I build next? When am I ready? Where does this lead?</div>
         <div class="cover-meta">
           <div class="cm-item"><span class="cm-lbl">Version</span><span class="cm-val">1.0</span></div>
           <div class="cm-item"><span class="cm-lbl">Updated</span><span class="cm-val">March 2025</span></div>
@@ -814,6 +954,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <div class="doc-h1"><span class="doc-h1-num">01</span>Your Mission: Build Pulse End-to-End</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; What Is This?</div><div class="tldr-text">You are going to build a real fintech backend — the same kind of system that powers Stripe and Razorpay. This document is your step-by-step construction manual. Every section gives you one concrete thing to build. <strong>Read this section first, then go to §03.</strong></div></div>
+      <div class="prereq-block"><div class="prereq-label">📋 Before You Start</div><div class="prereq-items"><div class="prereq-none">No prerequisites — this is a valid starting point</div></div></div>
+
 
 
       <div class="cl-block cl-block-obj">
@@ -848,7 +990,11 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <span class="cl-label cl-why">Why It Matters</span>
         Every fintech backend engineer at Stripe, Razorpay, Zerodha, or any trading firm operates systems built on exactly these patterns. This is not a toy project — it is a production-equivalent portfolio piece that directly maps to engineering interviews and day-one job responsibilities.
       </div>
-    </div>
+    
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">The Pragmatic Programmer</div><div class="rl-book-meta"><span class="rl-book-author">David Thomas & Andrew Hunt</span><span class="rl-book-sep">·</span><span class="rl-book-year">20th Anniversary Ed · 2019</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>A Pragmatic Philosophy</strong> — the mindset that separates engineers who ship from engineers who draft</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>A Pragmatic Approach</strong> — tracer bullets and prototypes; how to move fast without breaking fundamentals</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 7</span><span class="rl-ch-desc"><strong>While You Are Coding</strong> — how to think about what you are building as you build it</span></div></div><div class="rl-note">Read these three chapters before touching any code in this document. They define the mindset you need.</div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Clean Code</div><div class="rl-book-meta"><span class="rl-book-author">Robert C. Martin</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · 2008</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>Clean Code</strong> — what clean code is and why it matters more than speed</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>Meaningful Names</strong> — every function and variable in this codebase will be named by you</span></div></div></div></div></div></div>
+
+      </div>
 
     <!-- 2. CURRENT STATE → GAP ASSESSMENT -->
     <div class="doc-section" id="s2">
@@ -856,6 +1002,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <div class="doc-h1"><span class="doc-h1-num">02</span>Identify Your Gap — Then Close It</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Where We Start</div><div class="tldr-text">Pulse currently exists as a simple HTML file. This section explains what it does today and why it needs to become a proper backend. <strong>Nothing to build here — just understand the starting point before you redesign it.</strong></div></div>
+      <div class="prereq-block" data-section="s2"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s2_§01 Executive Summary" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Read §01 — Mission Brief</span></div></div><div class="prereq-all-done" id="pre_done_s2">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
 
       <div class="cl-block cl-block-obj">
@@ -896,7 +1044,11 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <span class="cl-label cl-why">Why It Matters</span>
         Junior engineers are often asked "what's wrong with this system?" in interviews. Doing this gap analysis on your own project trains you to spot production-readiness issues instantly — a signal interviewers specifically look for when hiring for fintech roles.
       </div>
-    </div>
+    
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">1 book</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Designing Data-Intensive Applications</div><div class="rl-book-meta"><span class="rl-book-author">Martin Kleppmann</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2017</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>Reliable, Scalable, and Maintainable Applications</strong> — defines what these words actually mean with precision; sets the vocabulary for the rest of this course</span></div></div><div class="rl-note">This is the most important technical book you will read. Buy it. You will reference it across sections 2 through 19.</div></div></div></div></div>
+
+      </div>
 
     <!-- 3. TARGET ARCHITECTURE → BUILD THIS -->
     <div class="doc-section" id="s3">
@@ -904,6 +1056,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <div class="doc-h1"><span class="doc-h1-num">03</span>Build This Architecture — Service by Service</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; The Big Picture</div><div class="tldr-text">You need to split the app into 8 separate services — think of them as 8 small apps that each do one job and communicate through events, not direct calls. <strong>Draw this before writing any code. You cannot skip this step.</strong></div></div>
+      <div class="prereq-block" data-section="s3"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s3_programming" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Know at least one programming language (Python or Go)</span></div><div class="prereq-item" data-key="pre_s3_api" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Understand what an API is — a way for two apps to talk</span></div><div class="prereq-item" data-key="pre_s3_http" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Know what HTTP is — the protocol browsers use</span></div></div><div class="prereq-all-done" id="pre_done_s3">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
 
       <div class="cl-block cl-block-obj">
@@ -936,7 +1090,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <div class="service-grid">
         <div class="service-card"><div class="sc-name"><span class="sc-lang">Go</span>① API Gateway — Build First</div><div class="sc-desc"><strong>Do:</strong> implement <span class="gloss" tabindex="0">JWT<span class="gloss-tip"><strong>JWT — JSON Web Token</strong><br>A <strong>signed digital pass</strong> proving who you are. Contains your user ID and role. The server verifies the signature — no DB lookup needed on every request.</span></span> middleware, rate limiting (<span class="gloss" tabindex="0">Redis<span class="gloss-tip"><strong>Redis</strong><br>An extremely fast <strong>in-memory key-value store</strong>. Used for caching (fast reads), session storage, rate limiting, leaderboards, and pub/sub messaging.</span></span> token bucket), and route forwarding to downstream services via <span class="gloss" tabindex="0">gRPC<span class="gloss-tip"><strong>gRPC</strong><br>A fast way for <strong>services to call each other internally</strong>. Uses Protocol Buffers instead of JSON. Much faster than REST for internal service-to-service calls.</span></span></div></div>
         <div class="service-card"><div class="sc-name"><span class="sc-lang">Go</span>② User Service — Build Second</div><div class="sc-desc"><strong>Do:</strong> implement <code>POST /auth/register</code> and <code>POST /auth/token</code>; <span class="gloss" tabindex="0">bcrypt<span class="gloss-tip"><strong>bcrypt</strong><br>A password hashing function that is <strong>intentionally slow</strong>. Slow is the feature — it makes brute-force cracking impractical even on fast hardware.</span></span> passwords; issue RS256 <span class="gloss" tabindex="0">JWT<span class="gloss-tip"><strong>JWT — JSON Web Token</strong><br>A <strong>signed digital pass</strong> proving who you are. Contains your user ID and role. The server verifies the signature — no DB lookup needed on every request.</span></span>; store in <span class="gloss" tabindex="0">PostgreSQL<span class="gloss-tip"><strong>PostgreSQL</strong><br>The most trusted open-source <strong>relational database</strong>. Used by Stripe, GitHub, and most fintech companies. <span class="gloss" tabindex="0">ACID<span class="gloss-tip"><strong>ACID Transactions</strong><br>Database guarantee: <strong>Atomic</strong> (all or nothing), <strong>Consistent</strong> (rules always hold), <strong>Isolated</strong> (transactions don't interfere), <strong>Durable</strong> (survives crashes).</span></span>-compliant — financial data is safe here.</span></span></div></div>
-        <div class="service-card"><div class="sc-name"><span class="sc-lang">Go</span>③ Progress Service — Build Third</div><div class="sc-desc"><strong>Do:</strong> handle node completion with <span class="gloss"><span class="gloss" tabindex="0"><span class="gloss" tabindex="0">idempotency<span class="gloss-tip"><strong>Idempotency</strong><br>Performing the same operation twice produces the <strong>same result as once</strong>. Critical for payments: a retry should never double-charge.</span></span> key<span class="gloss-tip"><strong>Idempotency Key</strong><br>A unique ID you attach to a request so the server can detect and <strong>ignore exact duplicates</strong>. Send a payment twice with the same key → only one charge happens.</span></span><span class="gloss-tip">A unique ID you send with a request so the server ignores duplicates — sending a payment twice only charges once.</span></span>; write to <code>node_progress</code> table and <code>outbox_messages</code> in the same transaction</div></div>
+        <div class="service-card"><div class="sc-name"><span class="sc-lang">Go</span>③ Progress Service — Build Third</div><div class="sc-desc"><strong>Do:</strong> handle node completion with <span class="gloss">idempotency; write to <code>node_progress</code> table and <code>outbox_messages</code> in the same transaction</div></div>
         <div class="service-card"><div class="sc-name"><span class="sc-lang">Go</span>④ XP Ledger Service — Build Fourth</div><div class="sc-desc"><strong>Do:</strong> consume <code>NodeCompleted</code> from Kafka; write <span class="gloss" tabindex="0">double-entry<span class="gloss-tip"><strong>Double-Entry Bookkeeping</strong><br>Every money move has <strong>two sides — a debit and a credit</strong>. The foundation of all banking. The total must always balance, making errors detectable.</span></span> row to <code>ledger_transactions</code>; enforce the balance invariant</div></div>
         <div class="service-card"><div class="sc-name"><span class="sc-lang">Go</span>⑤ Streak Service — Build Fifth</div><div class="sc-desc"><strong>Do:</strong> consume <code>NodeCompleted</code>; atomically INCR streak counter in <span class="gloss" tabindex="0">Redis<span class="gloss-tip"><strong>Redis</strong><br>An extremely fast <strong>in-memory key-value store</strong>. Used for caching (fast reads), session storage, rate limiting, leaderboards, and pub/sub messaging.</span></span>; detect same-day duplicates; publish <code>StreakIncremented</code></div></div>
         <div class="service-card"><div class="sc-name"><span class="sc-lang">Go</span>⑥ Notification Service — Build Sixth</div><div class="sc-desc"><strong>Do:</strong> open gorilla <span class="gloss" tabindex="0">WebSocket<span class="gloss-tip"><strong>WebSocket</strong><br>A <strong>persistent two-way connection</strong> between browser and server. Unlike normal HTTP, the server can push data to the client at any time — no page refresh needed.</span></span> hub; consume xp.events and streak.events; push typed JSON message to connected client within 100ms</div></div>
@@ -963,7 +1117,11 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         System design interviews at fintech companies ask you to decompose a payment platform into services. Having built this yourself means you can draw the diagram from memory, explain every boundary decision, and defend every tradeoff — because you lived through them.
       </div>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Building Microservices</div><div class="rl-book-meta"><span class="rl-book-author">Sam Newman</span><span class="rl-book-sep">·</span><span class="rl-book-year">2nd Ed · O'Reilly · 2021</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>What Are Microservices?</strong> — the 8 key concepts: independent deployability, modelling around business domains, decentralised data, hiding implementation details</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>How to Model Services</strong> — bounded contexts, information hiding, the single biggest reason microservice projects fail is wrong service boundaries</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 4</span><span class="rl-ch-desc"><strong>Communication Styles</strong> — synchronous blocking vs asynchronous non-blocking; why Pulse uses events instead of direct calls</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 6</span><span class="rl-ch-desc"><strong>Workflow</strong> — sagas, two-phase commit, distributed transactions; directly maps to your payment flow in §15</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 12</span><span class="rl-ch-desc"><strong>Resiliency</strong> — timeouts, circuit breakers, bulkheads; preview of §11</span></div></div><div class="rl-note">Chapters 1 and 2 are mandatory before drawing a single box in §03. The rest can be read progressively as you build.</div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Software Architecture: The Hard Parts</div><div class="rl-book-meta"><span class="rl-book-author">Neal Ford, Mark Richards, Pramod Sadalage, Zhamak Dehghani</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2021</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>Discerning Coupling in Software Architecture</strong> — static vs dynamic coupling; exactly what you are deciding when you split services</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 3</span><span class="rl-ch-desc"><strong>Architectural Modularity</strong> — granularity and cohesion; how big should a service be?</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 5</span><span class="rl-ch-desc"><strong>Component-Based Decomposition Patterns</strong> — the Strangler Fig, moving from a monolith to services step by step</span></div></div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div</div>
 class="acl-wrapper">
   <div class="acl-block acl-fail">
@@ -1000,7 +1158,6 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
 
     <!-- 4. TECH STACK → INSTALL & CONFIGURE -->
     <div class="doc-section" id="s4">
@@ -1008,6 +1165,8 @@ class="acl-wrapper">
       <div class="doc-h1"><span class="doc-h1-num">04</span>Install and Configure Your Stack — No Shortcuts</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Get Your Toolbox Running</div><div class="tldr-text">Before writing a single line of service code, install and run every tool your system needs — the database, cache, message bus, and monitoring stack — all on your laptop using Docker. <strong>If docker-compose up fails, nothing else in this document is possible.</strong></div></div>
+      <div class="prereq-block" data-section="s4"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s4_s3" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §03 — Architecture designed and documented</span></div><div class="prereq-item" data-key="pre_s4_cli" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Comfortable with terminal / command line</span></div><div class="prereq-item" data-key="pre_s4_docker" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Docker installed — docker run hello-world works</span></div></div><div class="prereq-all-done" id="pre_done_s4">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
 
       <div class="cl-block cl-block-obj">
@@ -1053,7 +1212,11 @@ class="acl-wrapper">
         Stack selection is your first architectural decision in any new job. Being able to explain why you chose Redpanda over Kafka MSK, or Go over Java, and back it up with concrete tradeoff reasoning, is exactly what staff engineers test for in technical screen calls.
       </div>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">The Go Programming Language</div><div class="rl-book-meta"><span class="rl-book-author">Alan A.A. Donovan & Brian W. Kernighan</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · Addison-Wesley · 2015</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>Tutorial</strong> — complete working programs in the first chapter; gets you writing real Go immediately</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 7</span><span class="rl-ch-desc"><strong>Interfaces</strong> — the single most important language feature for backend engineering in Go; used everywhere in Pulse's service handlers</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 8</span><span class="rl-ch-desc"><strong>Goroutines and Channels</strong> — Go's concurrency model; required for the WebSocket hub in §09 and Kafka consumers in §05</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 9</span><span class="rl-ch-desc"><strong>Concurrency with Shared Variables</strong> — sync.Mutex, race conditions; relevant to the streak counter and XP ledger</span></div></div><div class="rl-note">Read Ch 1, 7, 8 before writing any Go. Read Ch 9 when you start §05 events.</div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Docker Deep Dive</div><div class="rl-book-meta"><span class="rl-book-author">Nigel Poulton</span><span class="rl-book-sep">·</span><span class="rl-book-year">2023 Ed · Self-published</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num whole">Whole</span><span class="rl-ch-desc"><strong>Entire book — 200 pages</strong> — images, containers, volumes, networks, Compose; everything you need for §04's docker-compose setup in one sitting</span></div></div><div class="rl-note">Read the whole book in a day. It's short and gives you everything needed to run the full Pulse stack locally.</div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div
 class="acl-wrapper">
   <div class="acl-block acl-fail">
@@ -1090,7 +1253,7 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
+    </div>
 
     <!-- 5. EVENT-DRIVEN → IMPLEMENT EVENTS -->
     <div class="doc-section" id="s5">
@@ -1098,6 +1261,8 @@ class="acl-wrapper">
       <div class="doc-h1"><span class="doc-h1-num">05</span>Implement Your Event System — One Event at a Time</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; How Services Talk to Each Other</div><div class="tldr-text">Instead of Service A calling Service B directly, it publishes an event ("NodeCompleted") to Kafka — and B reacts when it reads that event. This means if B goes down, A keeps working. <strong>This is the most important architecture pattern in modern backend engineering. Take your time here.</strong></div></div>
+      <div class="prereq-block" data-section="s5"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s5_s4" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §04 — docker-compose up runs without errors</span></div><div class="prereq-item" data-key="pre_s5_go" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Can write basic Go or Python functions and run them</span></div><div class="prereq-item" data-key="pre_s5_queue" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Understand what a message queue is at a high level</span></div></div><div class="prereq-all-done" id="pre_done_s5">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
 
       <div class="cl-block cl-block-obj">
@@ -1162,7 +1327,11 @@ class="acl-wrapper">
         Event-driven architecture is the dominant pattern at every major fintech company. Kafka expertise alone opens doors at Stripe, Coinbase, Razorpay, and most trading firms. Being able to say "I designed a 9-event schema, defined idempotency guarantees, and measured consumer lag end-to-end" is a top-tier interview differentiator.
       </div>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">3 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Designing Event-Driven Systems</div><div class="rl-book-meta"><span class="rl-book-author">Ben Stopford</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2018</span><span class="rl-book-free">FREE</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1–3</span><span class="rl-ch-desc"><strong>Events everywhere / The Service Mesh / Bases of Streaming Systems</strong> — explains why events beat RPC for distributed systems; the conceptual foundation for everything in §05</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 4–5</span><span class="rl-ch-desc"><strong>Building Event-Driven Systems / Events: A Basis for Collaboration</strong> — exactly how Pulse's NodeCompleted → XPCredited chain works</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 7</span><span class="rl-ch-desc"><strong>Scaling Event-Driven Systems</strong> — partition strategies, consumer groups, how to scale Kafka consumers under load</span></div></div><div class="rl-note">FREE at benstopford.com. Read before writing a single Kafka producer.</div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Kafka: The Definitive Guide</div><div class="rl-book-meta"><span class="rl-book-author">Neha Narkhede, Gwen Shapira, Todd Palino</span><span class="rl-book-sep">·</span><span class="rl-book-year">2nd Ed · O'Reilly · 2021</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>Meet Kafka</strong> — topics, partitions, producers, consumers; the mental model</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 3</span><span class="rl-ch-desc"><strong>Kafka Producers: Writing Messages to Kafka</strong> — idempotent producers, retries, acks; directly relevant to the outbox pattern in §11</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 4</span><span class="rl-ch-desc"><strong>Kafka Consumers: Reading Data from Kafka</strong> — consumer groups, offset commits, rebalancing; what causes consumer lag alerts in §10</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 6</span><span class="rl-ch-desc"><strong>Kafka Internals</strong> — how leader election and replication work; maps directly to §18 failure scenarios</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📙</div><div class="rl-book-main"><div class="rl-book-title">Designing Data-Intensive Applications</div><div class="rl-book-meta"><span class="rl-book-author">Martin Kleppmann</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2017</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 11</span><span class="rl-ch-desc"><strong>Stream Processing</strong> — event sourcing, CQRS, CDC; the theoretical foundations for the XP ledger's event log in §06</span></div></div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div</div>
 class="acl-wrapper">
   <div class="acl-block acl-fail">
@@ -1199,7 +1368,6 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
 
     <!-- 6. XP LEDGER → BUILD IT -->
     <div class="doc-section" id="s6">
@@ -1207,6 +1375,8 @@ class="acl-wrapper">
       <div class="doc-h1"><span class="doc-h1-num">06</span>Build the XP Ledger — Your Most Important System</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Track Points Like a Bank Tracks Money</div><div class="tldr-text">Every XP gain and loss is recorded as an immutable entry in a ledger — exactly how a real bank records every transaction. You can never edit or delete a ledger row. Mistakes are fixed by adding a new compensating entry. <strong>This section is the hardest in the document. It is also the most valuable skill you will learn.</strong></div></div>
+      <div class="prereq-block" data-section="s6"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s6_s5" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §05 — NodeCompleted event flows end-to-end</span></div><div class="prereq-item" data-key="pre_s6_sql" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Can write SELECT, INSERT, CREATE TABLE in SQL</span></div><div class="prereq-item" data-key="pre_s6_txn" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Understand what a database transaction is</span></div></div><div class="prereq-all-done" id="pre_done_s6">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
 
       <div class="cl-block cl-block-obj">
@@ -1272,7 +1442,11 @@ class="acl-wrapper">
         Double-entry accounting is how every bank, payment processor, and trading firm tracks money. Being able to implement it correctly — with idempotency, immutability, and balance invariants — puts you in the top 5% of backend candidates interviewing for fintech roles.
       </div>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">3 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Accounting Made Simple</div><div class="rl-book-meta"><span class="rl-book-author">Mike Piper</span><span class="rl-book-sep">·</span><span class="rl-book-year">2nd Ed · Simple Subjects · 2013</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num whole">Whole</span><span class="rl-ch-desc"><strong>Entire book — 112 pages</strong> — the accounting equation, debits and credits, double-entry bookkeeping explained for non-accountants; read this before touching the ledger schema</span></div></div><div class="rl-note">Do not skip this. You cannot implement double-entry bookkeeping correctly if you do not understand it. This book takes 2–3 hours and teaches you a skill banks spend months training engineers on.</div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Designing Data-Intensive Applications</div><div class="rl-book-meta"><span class="rl-book-author">Martin Kleppmann</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2017</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 7</span><span class="rl-ch-desc"><strong>Transactions</strong> — ACID guarantees, isolation levels (read committed, repeatable read, serializable), how to choose the right one for financial data</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 9</span><span class="rl-ch-desc"><strong>Consistency and Consensus</strong> — linearizability, the CAP theorem applied to ledger correctness; what happens when two nodes disagree on a balance</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📙</div><div class="rl-book-main"><div class="rl-book-title">Payments Systems in the U.S.</div><div class="rl-book-meta"><span class="rl-book-author">Carol Coye Benson & Scott Loftesness</span><span class="rl-book-sep">·</span><span class="rl-book-year">3rd Ed · Glenbrook · 2013</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>Overview of the U.S. Payments Industry</strong> — how money actually moves in the real world; gives the XP ledger real-world context</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>Card Payments</strong> — authorisation, settlement, clearing; the exact state machine you build in §15</span></div></div><div class="rl-note">Expensive but worth it if you plan to work in payments. Alternatively, Glenbrook's free blog covers the same concepts.</div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div</div>
 class="acl-wrapper">
   <div class="acl-block acl-fail">
@@ -1309,7 +1483,6 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
 
     <!-- 7. DATA MODEL → DESIGN THIS SCHEMA -->
     <div class="doc-section" id="s7">
@@ -1317,6 +1490,8 @@ class="acl-wrapper">
       <div class="doc-h1"><span class="doc-h1-num">07</span>Design Your Schema — Every Table, Every Index</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Design Your Tables Before You Write Code</div><div class="tldr-text">Every database table, every column, and every index must be planned before any service starts writing data. A missing index at 100,000 users means every request slows to a crawl. <strong>EXPLAIN ANALYZE is the most important SQL command you will learn this section.</strong></div></div>
+      <div class="prereq-block" data-section="s7"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s7_s4" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §04 — PostgreSQL running locally via Docker</span></div><div class="prereq-item" data-key="pre_s7_sql2" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Can write CREATE TABLE and ALTER TABLE statements</span></div><div class="prereq-item" data-key="pre_s7_pk" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Understand PRIMARY KEY and FOREIGN KEY constraints</span></div></div><div class="prereq-all-done" id="pre_done_s7">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
 
       <div class="cl-block cl-block-obj">
@@ -1369,7 +1544,11 @@ class="acl-wrapper">
         Data modeling is where most junior engineers lose performance later. Hiring managers specifically ask "what indexes did you add and why?" — showing you know the difference between a composite index and a partial index signals real database competence.
       </div>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">3 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">PostgreSQL: Up and Running</div><div class="rl-book-meta"><span class="rl-book-author">Regina Obe & Leo Hsu</span><span class="rl-book-sep">·</span><span class="rl-book-year">3rd Ed · O'Reilly · 2017</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>Database Administration</strong> — roles, privileges, tablespaces; setting up your Pulse database correctly</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 7</span><span class="rl-ch-desc"><strong>Queries</strong> — EXPLAIN, EXPLAIN ANALYZE; the two most important commands for understanding index usage</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 10</span><span class="rl-ch-desc"><strong>Table Partitioning</strong> — range and hash partitioning; directly covers the node_progress PARTITION BY HASH(user_id) migration in §07</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Designing Data-Intensive Applications</div><div class="rl-book-meta"><span class="rl-book-author">Martin Kleppmann</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2017</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 3</span><span class="rl-ch-desc"><strong>Storage and Retrieval</strong> — B-tree indexes, LSM-trees, how the database finds data on disk; why a missing index causes a full table scan at 1M rows</span></div></div><div class="rl-note">Chapter 3 is the single best explanation of how database indexes actually work. Read it before adding a single index in §07.</div></div></div><div class="rl-book"><div class="rl-book-num">📙</div><div class="rl-book-main"><div class="rl-book-title">Use The Index, Luke!</div><div class="rl-book-meta"><span class="rl-book-author">Markus Winand</span><span class="rl-book-sep">·</span><span class="rl-book-year">Free online · use-the-index-luke.com</span><span class="rl-book-free">FREE</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Part 1</span><span class="rl-ch-desc"><strong>Anatomy of an Index</strong> — the leaf nodes, the tree, the cost; this is the mental model for every EXPLAIN ANALYZE result you will ever read</span></div><div class="rl-chapter"><span class="rl-ch-num ">Part 2</span><span class="rl-ch-desc"><strong>The Where Clause</strong> — why your index is not being used and how to fix it</span></div><div class="rl-chapter"><span class="rl-ch-num ">Part 4</span><span class="rl-ch-desc"><strong>The Join Operation</strong> — nested loop, hash join, merge join; essential for multi-table queries in ledger_transactions</span></div></div><div class="rl-note">Completely free. Bookmark it. You will return to it every time you write a slow query.</div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div
 class="acl-wrapper">
   <div class="acl-block acl-fail">
@@ -1406,7 +1585,7 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
+    </div>
 
     <!-- 8. AUTH → IMPLEMENT IT -->
     <div class="doc-section" id="s8">
@@ -1414,6 +1593,8 @@ class="acl-wrapper">
       <div class="doc-h1"><span class="doc-h1-num">08</span>Implement Auth — Every Endpoint Needs This Before Going Live</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Prove Who You Are on Every Request</div><div class="tldr-text">When a user logs in they receive a JWT — a signed digital pass. They show this pass on every future request. Rate limiting stops attackers from trying millions of passwords. <strong>No endpoint should respond to any request without a valid JWT. This comes before everything else.</strong></div></div>
+      <div class="prereq-block" data-section="s8"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s8_s7" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §07 — all database migrations applied and tested</span></div><div class="prereq-item" data-key="pre_s8_headers" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Know what HTTP request headers are</span></div><div class="prereq-item" data-key="pre_s8_session" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Understand what a login session or cookie does</span></div></div><div class="prereq-all-done" id="pre_done_s8">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
 
       <div class="cl-block cl-block-obj">
@@ -1472,7 +1653,11 @@ tokens = tonumber(tokens) or ARGV[1]
         Every fintech engineering interview includes at least one auth question: "How does your JWT validation work?" or "How do you prevent token reuse?" Having a working implementation you built lets you answer with specifics instead of theory.
       </div>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">3 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">OAuth 2 in Action</div><div class="rl-book-meta"><span class="rl-book-author">Justin Richer & Antonio Sanso</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · Manning · 2017</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>What is OAuth 2.0 and why should you care?</strong> — the difference between authentication and authorisation; what JWT actually solves</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>The OAuth Dance</strong> — token grant flows; maps to the access + refresh token system you build in §08</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 9</span><span class="rl-ch-desc"><strong>Common Protected Resources Vulnerabilities</strong> — token leakage, replay attacks, insufficient scope checking; threats you must design against</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">The Web Application Hacker's Handbook</div><div class="rl-book-meta"><span class="rl-book-author">Dafydd Stuttard & Marcus Pinto</span><span class="rl-book-sep">·</span><span class="rl-book-year">2nd Ed · Wiley · 2011</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 6</span><span class="rl-ch-desc"><strong>Attacking Authentication</strong> — brute force, credential stuffing, password reset flaws; exactly what your rate limiter and TOTP are defending against</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 8</span><span class="rl-ch-desc"><strong>Attacking Access Controls</strong> — privilege escalation, IDOR, broken RBAC; the attack patterns your JWT middleware must block</span></div></div><div class="rl-note">Read these two chapters to understand your attacker's perspective. You cannot defend well without knowing how you're attacked.</div></div></div><div class="rl-book"><div class="rl-book-num">📙</div><div class="rl-book-main"><div class="rl-book-title">Security Engineering</div><div class="rl-book-meta"><span class="rl-book-author">Ross Anderson</span><span class="rl-book-sep">·</span><span class="rl-book-year">3rd Ed · Wiley · 2020</span><span class="rl-book-free">FREE</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 10</span><span class="rl-ch-desc"><strong>Banking and Bookkeeping</strong> — how financial systems are attacked and how controls are designed; directly relevant to §06 + §08 together</span></div></div><div class="rl-note">FREE at cl.cam.ac.uk/~rja14/book.html — Chapter 10 alone is worth the bookmark.</div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div</div>
 class="acl-wrapper">
   <div class="acl-block acl-fail">
@@ -1509,7 +1694,6 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
 
     <!-- 9. REAL-TIME → BUILD IT -->
     <div class="doc-section" id="s9">
@@ -1517,6 +1701,8 @@ class="acl-wrapper">
       <div class="doc-h1"><span class="doc-h1-num">09</span>Build the WebSocket Notification System</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Update the Screen Without Refreshing the Page</div><div class="tldr-text">When a user earns XP, their counter should update instantly in the browser — no page refresh. This requires a WebSocket: a permanent two-way connection, like a phone call that stays open instead of a one-shot text message. <strong>You will know it works when you see the number change live in the browser console.</strong></div></div>
+      <div class="prereq-block" data-section="s9"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s9_s8" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §08 — JWT auth protecting at least one endpoint</span></div><div class="prereq-item" data-key="pre_s9_s5b" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §05 — Kafka events flowing between services</span></div><div class="prereq-item" data-key="pre_s9_devtools" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Know how to open browser developer tools (press F12)</span></div></div><div class="prereq-all-done" id="pre_done_s9">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
 
       <div class="cl-block cl-block-obj">
@@ -1562,7 +1748,11 @@ class="acl-wrapper">
     </div>
       </table>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">3 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Designing Data-Intensive Applications</div><div class="rl-book-meta"><span class="rl-book-author">Martin Kleppmann</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2017</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 11</span><span class="rl-ch-desc"><strong>Stream Processing</strong> — messaging semantics (at-least-once, at-most-once, exactly-once); directly relevant to what happens when the WebSocket hub misses an event</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Go Concurrency Patterns (Google I/O Talk)</div><div class="rl-book-meta"><span class="rl-book-author">Rob Pike</span><span class="rl-book-sep">·</span><span class="rl-book-year">Free · talks.golang.org · 2012</span><span class="rl-book-free">FREE</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num whole">Whole</span><span class="rl-ch-desc"><strong>Complete talk + slides</strong> — the canonical explanation of goroutines, channels, and select; the concurrency model behind the WebSocket hub and Kafka consumer goroutines</span></div></div><div class="rl-note">FREE at talks.golang.org/2012/concurrency.slide — Watch the 30-min video. Essential for understanding how goroutines and channels power the §09 WebSocket hub.</div></div></div><div class="rl-book"><div class="rl-book-num">📙</div><div class="rl-book-main"><div class="rl-book-title">Building Real-Time Web Applications with Go</div><div class="rl-book-meta"><span class="rl-book-author">Various (O'Reilly Reports)</span><span class="rl-book-sep">·</span><span class="rl-book-year">O'Reilly · 2019</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>WebSocket Protocol Fundamentals</strong> — handshake, frames, ping/pong; what the gorilla/websocket library is doing under the hood</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 4</span><span class="rl-ch-desc"><strong>Scaling WebSockets</strong> — sticky sessions vs Redis pub/sub for multi-pod delivery; directly the architecture choice in §09</span></div></div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div class="acl-wrapper">
   <div class="acl-block acl-fail">
     <div class="acl-label">⚠ Common Mistakes / Where People Fail</div>
@@ -1598,13 +1788,6 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
-
-    <!-- 8. AUTH — content now in the career ladder section above (s8 id kept for nav) -->
-    <div class="doc-section" id="s8" style="display:none"></div>
-
-    <!-- 9. REAL-TIME — content now in the career ladder section above (s9 id kept for nav) -->
-    <div class="doc-section" id="s9" style="display:none"></div>
 
     <!-- 10. OBSERVABILITY → SET IT UP -->
     <div class="doc-section" id="s10">
@@ -1612,6 +1795,8 @@ class="acl-wrapper">
       <div class="doc-h1"><span class="doc-h1-num">10</span>Set Up Observability — Add These Metrics and Alerts</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; See What Your System Is Doing</div><div class="tldr-text">Add dashboards and alerts so you can watch your system in real time. Without this you are flying blind — a failing payment with no metrics is a crisis; the same failure with a dashboard is a 5-minute fix. <strong>Set this up before any service goes to production. Not after.</strong></div></div>
+      <div class="prereq-block" data-section="s10"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s10_s4b" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §04 — Prometheus and Grafana containers running</span></div><div class="prereq-item" data-key="pre_s10_services" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">At least 2 services built and returning real HTTP responses</span></div></div><div class="prereq-all-done" id="pre_done_s10">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
 
       <div class="cl-block cl-block-obj">
@@ -1662,7 +1847,11 @@ class="acl-wrapper">
         SRE roles at fintech companies pay 30–50% more than backend engineer roles. The difference is almost entirely observability and reliability engineering knowledge. Being able to describe your <span class="gloss" tabindex="0">SLO<span class="gloss-tip"><strong>SLO — Service Level Objective</strong><br>A measurable target you commit to, e.g. <strong>"99.9% of requests respond in under 200ms"</strong>. Defines what "healthy" means before you can write alerts.</span></span>s, show your Grafana dashboards, and walk through an incident post-mortem is a direct path to senior compensation.
       </div>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Observability Engineering</div><div class="rl-book-meta"><span class="rl-book-author">Charity Majors, Liz Fong-Jones, George Miranda</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2022</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>What Is Observability?</strong> — the three pillars (metrics, logs, traces) and why structured events beat all three individually</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 5</span><span class="rl-ch-desc"><strong>Structured Events Are the Building Blocks of Observability</strong> — why every log line in Pulse must be structured JSON, not a plain string</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 6</span><span class="rl-ch-desc"><strong>Stitching Events into Traces</strong> — how a correlation_id flows through Progress Service → Kafka → XP Ledger → WebSocket in Jaeger</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 7</span><span class="rl-ch-desc"><strong>Instrumentation with OpenTelemetry</strong> — the exact instrumentation approach for the Go services in §04</span></div></div><div class="rl-note">This is the definitive book on the topic. Read Ch 1 before instrumenting anything.</div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Site Reliability Engineering</div><div class="rl-book-meta"><span class="rl-book-author">Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Murphy (Google)</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2016</span><span class="rl-book-free">FREE</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 4</span><span class="rl-ch-desc"><strong>Service Level Objectives</strong> — how to define SLOs; maps directly to the SLO table in §12</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 6</span><span class="rl-ch-desc"><strong>Monitoring Distributed Systems</strong> — the four golden signals (latency, traffic, errors, saturation); the exact metrics you add in §10</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 13</span><span class="rl-ch-desc"><strong>Emergency Response</strong> — what to do when an alert fires at 2am; your runbook template</span></div></div><div class="rl-note">FREE at sre.google/books — Chapters 4 and 6 are required reading before writing a single Prometheus metric.</div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div</div>
 class="acl-wrapper">
   <div class="acl-block acl-fail">
@@ -1699,13 +1888,14 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
 
     <!-- 11. RESILIENCE -->
     <div class="doc-section" id="s11">
       <div class="doc-h1"><span class="doc-h1-num">11</span>Resilience Patterns</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Keep Working When Things Break</div><div class="tldr-text">When one part of the system fails, make sure everything else keeps running. Circuit breakers stop failure from spreading. The outbox pattern ensures no data is lost when a service crashes mid-operation. <strong>Every production incident you avoid here is an incident you do not have to fix at 2am.</strong></div></div>
+      <div class="prereq-block" data-section="s11"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s11_s5c" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §05 — Event pipeline working end-to-end</span></div><div class="prereq-item" data-key="pre_s11_s10" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §10 — Basic Grafana dashboard showing metrics</span></div></div><div class="prereq-all-done" id="pre_done_s11">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
       <div class="doc-h2">11.1 Circuit Breaker</div>
       <p class="doc-p">The API Gateway and all inter-service gRPC clients implement <span class="gloss" tabindex="0">circuit breaker<span class="gloss-tip"><strong>Circuit Breaker</strong><br>Like a fuse in your home — if a downstream service keeps failing, the breaker <strong>"trips" and stops calls to it</strong>, preventing failure from cascading everywhere.</span></span>s. Each circuit monitors the error rate over a 10-second rolling window. The circuit opens when the error rate exceeds 50% with at least 20 requests in the window. After 30 seconds in open state, it enters half-open, allows a single probe request, and closes if successful.</p>
@@ -1724,7 +1914,11 @@ class="acl-wrapper">
   published_at    TIMESTAMPTZ           <span class="cm">-- NULL until relayed</span>
 );</div>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Release It!</div><div class="rl-book-meta"><span class="rl-book-author">Michael T. Nygard</span><span class="rl-book-sep">·</span><span class="rl-book-year">2nd Ed · Pragmatic Bookshelf · 2018</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 3</span><span class="rl-ch-desc"><strong>Stabilize Your System</strong> — the concept of "tight coupling" as a failure mode; why direct service calls cause cascading failures</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 4</span><span class="rl-ch-desc"><strong>Stability Antipatterns</strong> — cascade failures, integration points, chain reactions; these are exactly the failure modes §11 protects against</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 5</span><span class="rl-ch-desc"><strong>Stability Patterns</strong> — circuit breaker, timeout, bulkhead, steady state; the precise patterns you implement in §11; the circuit breaker description here is the canonical one</span></div></div><div class="rl-note">Chapter 5 is the most directly useful chapter in this reading list. The circuit breaker pattern described here is what you will implement, almost verbatim.</div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Designing Data-Intensive Applications</div><div class="rl-book-meta"><span class="rl-book-author">Martin Kleppmann</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2017</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 8</span><span class="rl-ch-desc"><strong>The Trouble with Distributed Systems</strong> — network unreliability, clock skew, partial failures; the environment your circuit breaker is defending against</span></div></div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div</div>
 class="acl-wrapper">
   <div class="acl-block acl-fail">
@@ -1761,13 +1955,14 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
 
     <!-- 12. LOAD TESTING -->
     <div class="doc-section" id="s12">
       <div class="doc-h1"><span class="doc-h1-num">12</span>Load Testing &amp; Performance Targets</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Can Your System Handle Real Traffic?</div><div class="tldr-text">Simulate 500 real users hitting your system at once and measure the result. If requests slow down or fail, find which part broke and fix it before launch. <strong>You will be surprised which component breaks first. It is almost never the one you expect.</strong></div></div>
+      <div class="prereq-block" data-section="s12"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s12_all_core" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Sections §03 through §11 all have working implementations</span></div><div class="prereq-item" data-key="pre_s12_grafana" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Grafana is running and displaying at least one live metric</span></div></div><div class="prereq-all-done" id="pre_done_s12">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
       <div class="doc-h2">12.1 k6 Scenario</div>
       <div class="code-block"><span class="kw">export const</span> options = {
@@ -1799,7 +1994,11 @@ class="acl-wrapper">
         </tbody>
       </table>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Every Computer Performance Book</div><div class="rl-book-meta"><span class="rl-book-author">Bob Wescott</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · CreateSpace · 2013</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>Thinking About Performance</strong> — how to reason about latency, throughput, utilisation before running a single test</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>Useful Laws</strong> — Little's Law, Amdahl's Law, the Utilisation Law; these explain why your P99 spikes before CPU hits 100%</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 5</span><span class="rl-ch-desc"><strong>Measurement</strong> — how to measure correctly; why local load tests are meaningless and staging tests are the minimum</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Site Reliability Engineering</div><div class="rl-book-meta"><span class="rl-book-author">Betsy Beyer et al. (Google)</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2016</span><span class="rl-book-free">FREE</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 17</span><span class="rl-ch-desc"><strong>Testing for Reliability</strong> — load testing as a reliability practice; how to set thresholds that are meaningful</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 26</span><span class="rl-ch-desc"><strong>Data Integrity: What You Read Is What You Wrote</strong> — why performance tests must also verify data correctness, not just latency</span></div></div><div class="rl-note">FREE at sre.google/books</div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div class="acl-wrapper">
   <div class="acl-block acl-fail">
     <div class="acl-label">⚠ Common Mistakes / Where People Fail</div>
@@ -1835,13 +2034,15 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
+    </div>
 
     <!-- 13. FRAUD -->
     <div class="doc-section" id="s13">
       <div class="doc-h1"><span class="doc-h1-num">13</span>Fraud Detection &amp; Anomaly Scoring</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Catch the Cheaters</div><div class="tldr-text">Detect when someone is gaming the system — completing 200 nodes in 5 minutes is only possible with a bot. Build rules that catch suspicious patterns and automatically freeze accounts that trigger them. <strong>This is exactly what every payments risk team builds at a real fintech company.</strong></div></div>
+      <div class="prereq-block" data-section="s13"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s13_s5d" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §05 — Kafka consumer pipeline operational</span></div><div class="prereq-item" data-key="pre_s13_s10b" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §10 — Alertmanager configured with alert rules</span></div></div><div class="prereq-all-done" id="pre_done_s13">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
       <table class="doc-table">
         <thead><tr><th>Rule</th><th>Signal</th><th>Action</th></tr></thead>
@@ -1855,7 +2056,11 @@ class="acl-wrapper">
         </tbody>
       </table>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Fraud Analytics Using Descriptive, Predictive, and Social Network Techniques</div><div class="rl-book-meta"><span class="rl-book-author">Bart Baesens, Véronique Van Vlasselaer, Wouter Verbeke</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · Wiley · 2015</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>Credit Card Fraud: An Introduction</strong> — how financial fraud works at a systems level; the attacker model for your velocity rules</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>Fraud Data</strong> — what signals matter, how to collect them, why device fingerprinting + velocity + geography together beat any single signal</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 3</span><span class="rl-ch-desc"><strong>Descriptive Analytics for Fraud Detection</strong> — building rule-based detection before ML; exactly the approach in §13</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Machine Learning for Financial Risk Management with Python</div><div class="rl-book-meta"><span class="rl-book-author">Abdullah Karasan</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2022</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 7</span><span class="rl-ch-desc"><strong>Fraud Detection</strong> — isolation forest, local outlier factor; the ML layer on top of your rule engine in §13</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 8</span><span class="rl-ch-desc"><strong>AML Detection</strong> — anti-money-laundering detection patterns; directly relevant for the SAR generation requirement</span></div></div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div class="acl-wrapper">
   <div class="acl-block acl-fail">
     <div class="acl-label">⚠ Common Mistakes / Where People Fail</div>
@@ -1891,13 +2096,15 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
+    </div>
 
     <!-- 14. AI RECOMMENDATIONS -->
     <div class="doc-section" id="s14">
       <div class="doc-h1"><span class="doc-h1-num">14</span>AI Recommendation Engine</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Suggest What to Learn Next Using AI</div><div class="tldr-text">Convert skills into number arrays (vectors). Find which unlearned skills are closest to what the user already knows. Return the top 3 as recommendations. This is how Netflix and Spotify recommendations work — applied to learning paths. <strong>Vectors are just lists of numbers. Do not be intimidated by the word "AI".</strong></div></div>
+      <div class="prereq-block" data-section="s14"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s14_s7b" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §07 — pgvector extension installed in PostgreSQL</span></div><div class="prereq-item" data-key="pre_s14_python" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Can run a Python script and install packages with pip</span></div><div class="prereq-item" data-key="pre_s14_ml" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Know what "similarity" means — no deep ML knowledge needed</span></div></div><div class="prereq-all-done" id="pre_done_s14">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
       <div class="doc-h2">14.1 Algorithm</div>
       <ul class="doc-ul">
@@ -1918,7 +2125,11 @@ class="acl-wrapper">
 <span class="kw">CREATE INDEX ON</span> node_embeddings USING hnsw (embedding vector_cosine_ops)
   WITH (m = <span class="nu">16</span>, ef_construction = <span class="nu">64</span>);</div>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Practical Recommender Systems</div><div class="rl-book-meta"><span class="rl-book-author">Kim Falk</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · Manning · 2019</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>What Is a Recommender System?</strong> — content-based vs collaborative filtering; the conceptual choice Pulse makes (content-based via embeddings)</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 7</span><span class="rl-ch-desc"><strong>Finding Similarities</strong> — cosine similarity, Euclidean distance, Pearson correlation; the exact math behind pgvector's vector_cosine_ops index</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 10</span><span class="rl-ch-desc"><strong>Rating and Ranking</strong> — how to turn similarity scores into a ranked list; maps directly to the gap vector → top-3 recommendation output</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Programming Collective Intelligence</div><div class="rl-book-meta"><span class="rl-book-author">Toby Segaran</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2007</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>Making Recommendations</strong> — the clearest explanation of how user-based recommendations work from first principles; written in Python with real code</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 3</span><span class="rl-ch-desc"><strong>Discovering Groups</strong> — k-means clustering; useful for understanding how to segment users by learning path for cold-start handling</span></div></div><div class="rl-note">Chapter 2 is old but still the best hands-on introduction to recommendation logic. The code is in Python 2 but trivially translatable.</div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div class="acl-wrapper">
   <div class="acl-block acl-fail">
     <div class="acl-label">⚠ Common Mistakes / Where People Fail</div>
@@ -1954,13 +2165,15 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
+    </div>
 
     <!-- 15. PAYMENT SIMULATION -->
     <div class="doc-section" id="s15">
       <div class="doc-h1"><span class="doc-h1-num">15</span>Fintech Feature: Payment Simulation</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Simulate a Real Payment Flow</div><div class="tldr-text">Build a fake payment system that behaves exactly like a real one — with all the same states (Initiated → Processing → Authorised → Settled) and failure modes. <strong>This teaches you how Stripe works under the hood, and is exactly what you will be asked about in fintech interviews.</strong></div></div>
+      <div class="prereq-block" data-section="s15"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s15_s6" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §06 — XP Ledger with idempotency working correctly</span></div><div class="prereq-item" data-key="pre_s15_s8b" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §08 — Auth middleware protecting all endpoints</span></div><div class="prereq-item" data-key="pre_s15_payments" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Have used a payment app (UPI/Stripe) — understand basic flow</span></div></div><div class="prereq-all-done" id="pre_done_s15">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
       <p class="doc-p">The payment simulation module exposes a learner to a realistic UPI/card payment state machine with genuine failure modes, retry semantics, and idempotency requirements. Every simulated payment is a state machine with seven defined states.</p>
       <table class="doc-table">
@@ -1976,7 +2189,11 @@ class="acl-wrapper">
         </tbody>
       </table>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">3 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Payments Systems in the U.S.</div><div class="rl-book-meta"><span class="rl-book-author">Carol Coye Benson & Scott Loftesness</span><span class="rl-book-sep">·</span><span class="rl-book-year">3rd Ed · Glenbrook · 2013</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>Card Payments</strong> — authorisation (the INITIATED → PROCESSING → AUTHORISED states), settlement (AUTHORISED → SETTLED), clearing; the complete real-world model your state machine simulates</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 4</span><span class="rl-ch-desc"><strong>Online and Mobile Payments</strong> — UPI, wallets, 3DS; the context for the payment simulation failures you build</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 6</span><span class="rl-ch-desc"><strong>Payment Risk</strong> — chargebacks, fraud, reversal economics; why REVERSED and FAILED states exist</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Designing Data-Intensive Applications</div><div class="rl-book-meta"><span class="rl-book-author">Martin Kleppmann</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2017</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 7</span><span class="rl-ch-desc"><strong>Transactions</strong> — compare-and-set, idempotency; the correctness guarantees your payment state machine must provide</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📙</div><div class="rl-book-main"><div class="rl-book-title">The Anatomy of a Payment (Stripe Blog)</div><div class="rl-book-meta"><span class="rl-book-author">Various Stripe Engineering Authors</span><span class="rl-book-sep">·</span><span class="rl-book-year">Free · stripe.com/blog</span><span class="rl-book-free">FREE</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num whole">Whole</span><span class="rl-ch-desc"><strong>Full article series</strong> — Stripe's own engineers explaining exactly how payment authorisation, retries, idempotency keys, and webhooks work in production; the best practical complement to the Payments Systems book</span></div></div><div class="rl-note">FREE at stripe.com/blog — search "payment" on the Stripe engineering blog. Read every article that covers idempotency and retry logic.</div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div class="acl-wrapper">
   <div class="acl-block acl-fail">
     <div class="acl-label">⚠ Common Mistakes / Where People Fail</div>
@@ -2012,13 +2229,15 @@ class="acl-wrapper">
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
+    </div>
 
     <!-- 16. DEPLOYMENT -->
     <div class="doc-section" id="s16">
       <div class="doc-h1"><span class="doc-h1-num">16</span>Deployment Architecture</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Ship Code Without Manual Steps</div><div class="tldr-text">Automate everything between git push and production. Every code change should automatically run tests, build a container, and deploy — with no manual steps. <strong>If you are still deploying by copying files or SSHing into servers, this section will change how you work permanently.</strong></div></div>
+      <div class="prereq-block" data-section="s16"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s16_s4c" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §04 — Docker and docker-compose working locally</span></div><div class="prereq-item" data-key="pre_s16_github" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Have a GitHub account and can push code to a repository</span></div><div class="prereq-item" data-key="pre_s16_aws" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Have an AWS free tier account set up</span></div></div><div class="prereq-all-done" id="pre_done_s16">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
       <div class="doc-h2">16.1 Kubernetes <span class="gloss" tabindex="0">HPA<span class="gloss-tip"><strong>HPA — Horizontal Pod Autoscaler</strong><br>Kubernetes <strong>automatically adds more copies of your service</strong> when load increases, and removes them when load drops. Saves money and handles traffic spikes.</span></span></div>
       <div class="code-block"><span class="kw">apiVersion</span>: autoscaling/v2
@@ -2046,7 +2265,11 @@ spec:
         <li>Production deployment with 10% canary for 15 minutes before full rollout</li>
       </ol>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Continuous Delivery</div><div class="rl-book-meta"><span class="rl-book-author">Jez Humble & David Farley</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · Addison-Wesley · 2010</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>The Problem of Delivering Software</strong> — the case for automation; why manual deploys always drift from automation over time</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 5</span><span class="rl-ch-desc"><strong>Anatomy of the Deployment Pipeline</strong> — commit stage, acceptance stage, manual approval gate; the exact 7-stage pipeline in §16</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 8</span><span class="rl-ch-desc"><strong>Automated Acceptance Testing</strong> — how to test deployments, not just code; the staging smoke test gate in your GitHub Actions pipeline</span></div></div><div class="rl-note">This book invented the CI/CD pipeline. Chapter 5 defines the vocabulary every DevOps tool uses.</div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">The DevOps Handbook</div><div class="rl-book-meta"><span class="rl-book-author">Gene Kim, Patrick Debois, John Willis, Jez Humble</span><span class="rl-book-sep">·</span><span class="rl-book-year">2nd Ed · IT Revolution · 2021</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Part III</span><span class="rl-ch-desc"><strong>The First Way: The Technical Practices of Flow</strong> — deployment pipelines, continuous integration, test automation; the engineering practices that make daily deployments safe</span></div><div class="rl-chapter"><span class="rl-ch-num ">Part IV</span><span class="rl-ch-desc"><strong>The Second Way: The Technical Practices of Feedback</strong> — telemetry, feature flags, canary releases; everything you wire up in §10 + §16 together</span></div></div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div class="acl-wrapper">
   <div class="acl-block acl-fail">
     <div class="acl-label">⚠ Common Mistakes / Where People Fail</div>
@@ -2082,7 +2305,7 @@ spec:
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
+    </div>
 
     <!-- 17. TRADEOFFS -->
     <div class="doc-section" id="s17">
@@ -2099,7 +2322,11 @@ spec:
           <tr><td>Python for Recommendation Engine</td><td>Go with gonum</td><td>ML ecosystem (sentence-transformers, pgvector, sklearn) is in Python. Service is not in the hot path; latency budget allows it.</td></tr>
         </tbody>
       </table>
-    </div>
+    
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Designing Data-Intensive Applications</div><div class="rl-book-meta"><span class="rl-book-author">Martin Kleppmann</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2017</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 5</span><span class="rl-ch-desc"><strong>Replication</strong> — synchronous vs asynchronous replication, the tradeoffs behind PostgreSQL's synchronous standby choice in §18</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 6</span><span class="rl-ch-desc"><strong>Partitioning</strong> — hash partitioning vs range partitioning; the exact tradeoff made in the node_progress table design</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Software Architecture: The Hard Parts</div><div class="rl-book-meta"><span class="rl-book-author">Neal Ford, Mark Richards et al.</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2021</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 4</span><span class="rl-ch-desc"><strong>Decoupling Patterns</strong> — when to decouple services and when the cost is not worth it</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 12</span><span class="rl-ch-desc"><strong>Transactional Sagas</strong> — the tradeoffs of the saga pattern vs 2PC; directly applicable to the payment flow decisions in §15</span></div></div></div></div></div></div>
+
+      </div>
 
     <!-- 18. FAILURE SCENARIOS -->
     <div class="doc-section" id="s18">
@@ -2117,7 +2344,11 @@ spec:
           <tr><td>Bot completes all 271 nodes in 5 minutes</td><td>Fraud detection velocity rule; HIGH alert</td><td>XP grants auto-held. If confirmed bot: account suspended, all XP reversed via compensating ledger entries.</td></tr>
         </tbody>
       </table>
-    </div>
+    
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Release It!</div><div class="rl-book-meta"><span class="rl-book-author">Michael T. Nygard</span><span class="rl-book-sep">·</span><span class="rl-book-year">2nd Ed · Pragmatic Bookshelf · 2018</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 9</span><span class="rl-ch-desc"><strong>Interconnect</strong> — how failure propagates across service calls; maps to the failure table in §18</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 10</span><span class="rl-ch-desc"><strong>Control Plane</strong> — kill switches, feature flags, configuration as a first-class concern</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 11</span><span class="rl-ch-desc"><strong>Security</strong> — how attackers exploit stability patterns; the fraud angle on resilience</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Site Reliability Engineering</div><div class="rl-book-meta"><span class="rl-book-author">Betsy Beyer et al. (Google)</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2016</span><span class="rl-book-free">FREE</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 13</span><span class="rl-ch-desc"><strong>Emergency Response</strong> — on-call escalation, incident command; what to do when §18 scenarios happen in production</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 14</span><span class="rl-ch-desc"><strong>Managing Incidents</strong> — incident classification, response playbooks; the post-mortem process after a ledger drift event</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 15</span><span class="rl-ch-desc"><strong>Postmortem Culture: Learning from Failure</strong> — blameless post-mortems; how strong engineering teams turn production failures into permanent improvements</span></div></div><div class="rl-note">FREE at sre.google/books — Ch 13–15 are the most actionable chapters in the book.</div></div></div></div></div>
+
+      </div>
 
     <!-- 19. SCALING -->
     <div class="doc-section" id="s19">
@@ -2139,13 +2370,19 @@ spec:
           <tr><td>Traffic spike (launch)</td><td>Progress Service pod count</td><td>Pre-emptive manual scale-up; <span class="gloss" tabindex="0">KEDA<span class="gloss-tip"><strong>KEDA — Kubernetes Event-Driven Autoscaling</strong><br>Scales your pods based on <strong>Kafka consumer lag</strong>, not just CPU. When messages pile up, more pods are added automatically.</span></span> Kafka consumer lag autoscaling</td></tr>
         </tbody>
       </table>
-    </div>
+    
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">The Art of Scalability</div><div class="rl-book-meta"><span class="rl-book-author">Martin Abbott & Michael Fisher</span><span class="rl-book-sep">·</span><span class="rl-book-year">2nd Ed · Addison-Wesley · 2015</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 6</span><span class="rl-ch-desc"><strong>Splitting for Scale</strong> — the AKF Scale Cube: x-axis (horizontal cloning), y-axis (functional decomposition), z-axis (data partitioning); the framework behind §19's scaling tiers</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 18</span><span class="rl-ch-desc"><strong>Avoiding Common Failure Scenarios</strong> — the failure modes that kill scaling plans before they succeed</span></div></div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">Designing Data-Intensive Applications</div><div class="rl-book-meta"><span class="rl-book-author">Martin Kleppmann</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2017</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 10</span><span class="rl-ch-desc"><strong>Batch Processing</strong> — when to switch from real-time to batch for analytics at scale; the materialized view decision in §07 revisited</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 12</span><span class="rl-ch-desc"><strong>The Future of Data Systems</strong> — composing data systems for correctness at scale; the end-state architecture Pulse grows towards</span></div></div></div></div></div></div>
+
+      </div>
 
     <!-- 20. SECURITY -->
     <div class="doc-section" id="s20">
       <div class="doc-h1"><span class="doc-h1-num">20</span>Security Architecture</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Multiple Layers of Protection</div><div class="tldr-text">Encrypt all traffic between services. Store secrets in a vault, never in code. Validate every input. Scan containers for vulnerabilities before deploying. <strong>A single security mistake at a fintech company can make the front page. This section is not optional.</strong></div></div>
+      <div class="prereq-block" data-section="s20"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s20_s8c" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §08 — JWT authentication working end-to-end</span></div><div class="prereq-item" data-key="pre_s20_s16" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §16 — CI/CD pipeline deploying to staging</span></div><div class="prereq-item" data-key="pre_s20_tls" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Understand what HTTPS / TLS does at a high level</span></div></div><div class="prereq-all-done" id="pre_done_s20">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
       <div class="doc-h2">Defence in Depth</div>
       <ul class="doc-ul">
@@ -2160,7 +2397,11 @@ spec:
         <li><strong>Dependency scanning:</strong> Trivy scans in CI; Dependabot for all Go modules; SBOM generated per release.</li>
       </ul>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">Security Engineering</div><div class="rl-book-meta"><span class="rl-book-author">Ross Anderson</span><span class="rl-book-sep">·</span><span class="rl-book-year">3rd Ed · Wiley · 2020</span><span class="rl-book-free">FREE</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>Who Is the Opponent?</strong> — attacker motivation and capability; builds the threat model your WAF, mTLS, and secrets rotation are responding to</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 21</span><span class="rl-ch-desc"><strong>Network Attack and Defence</strong> — TLS, certificate pinning, mTLS; the networking security that Istio provides in §20</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 26</span><span class="rl-ch-desc"><strong>Cryptography</strong> — symmetric encryption (AES), asymmetric (RSA/EC), key management; directly relevant to KMS, bcrypt, and JWT signing in §08 + §20</span></div></div><div class="rl-note">FREE at cl.cam.ac.uk/~rja14/book.html — The most comprehensive security engineering reference available. Chapters 2, 21, 26 are the core for a backend engineer.</div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">The Web Application Hacker's Handbook</div><div class="rl-book-meta"><span class="rl-book-author">Dafydd Stuttard & Marcus Pinto</span><span class="rl-book-sep">·</span><span class="rl-book-year">2nd Ed · Wiley · 2011</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 13</span><span class="rl-ch-desc"><strong>Attacking Users: Other Techniques</strong> — CSRF, clickjacking, HTTP header injection; the attack surface behind the WAF rules in §20</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 17</span><span class="rl-ch-desc"><strong>Attacking Application Architecture</strong> — shared hosting, virtualisation flaws; relevant to container escape and Kubernetes security contexts</span></div></div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div class="acl-wrapper">
   <div class="acl-block acl-fail">
     <div class="acl-label">⚠ Common Mistakes / Where People Fail</div>
@@ -2196,13 +2437,15 @@ spec:
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
+    </div>
 
     <!-- 21. API -->
     <div class="doc-section" id="s21">
       <div class="doc-h1"><span class="doc-h1-num">21</span>API Design</div>
       
       <div class="tldr"><div class="tldr-label">💬 Plain English &nbsp;—&nbsp; Design APIs That Other Engineers Love Using</div><div class="tldr-text">Your API is a contract. Consistent naming, correct HTTP status codes, cursor pagination, and idempotency keys on write endpoints make your API predictable. <strong>A great API is one that other engineers can use correctly without reading the documentation twice.</strong></div></div>
+      <div class="prereq-block" data-section="s21"><div class="prereq-label">📋 Before You Start — Tick Everything You Have Done</div><div class="prereq-items"><div class="prereq-item" data-key="pre_s21_s8d" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Completed §08 — At least one protected REST endpoint working</span></div><div class="prereq-item" data-key="pre_s21_json" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Comfortable reading and writing JSON</span></div><div class="prereq-item" data-key="pre_s21_verbs" onclick="togglePrereq(this)"><div class="prereq-checkbox"></div><span class="prereq-text">Know GET, POST, PUT, DELETE HTTP verbs and when to use each</span></div></div><div class="prereq-all-done" id="pre_done_s21">✓ All prerequisites met — you are ready to start this section</div></div>
+
 
       <div class="doc-h2">21.1 <span class="gloss" tabindex="0">REST API<span class="gloss-tip"><strong>REST API</strong><br>The standard way apps talk over the internet. You <strong>send an HTTP request</strong> (GET, POST, PUT, DELETE) to a URL and get a JSON response back.</span></span> (External)</div>
       <table class="doc-table">
@@ -2231,7 +2474,11 @@ spec:
         <li>FraudService.ScoreEvent(ScoringRequest) → AnomalyScore</li>
       </ul>
     
-<!-- ===== ADVANCED CAREER LAYER START ===== -->
+
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">The Design of Web APIs</div><div class="rl-book-meta"><span class="rl-book-author">Arnaud Lauret</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · Manning · 2019</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>What Is API Design?</strong> — why API design is a user experience problem, not a technical one</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>Designing an API for Its Users</strong> — consumer-first design; how to figure out what your API should look like before writing a line of code</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 5</span><span class="rl-ch-desc"><strong>Designing a Straightforward API</strong> — naming, structure, error messages; the conventions that make REST APIs predictable</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 7</span><span class="rl-ch-desc"><strong>Designing a Concise API</strong> — pagination, filtering, field selection; the patterns behind /ledger?cursor=X&limit=50 in §21</span></div></div><div class="rl-note">The most practical API design book available. Read Chapters 1–2 before finalising any endpoint in §21.</div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">gRPC: Up and Running</div><div class="rl-book-meta"><span class="rl-book-author">Kasun Indrasiri & Danesh Kuruppu</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2020</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>Introduction to gRPC</strong> — why gRPC beats REST for internal service calls; Protocol Buffers, HTTP/2 multiplexing</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 2</span><span class="rl-ch-desc"><strong>Getting Started with gRPC</strong> — defining .proto files, generating Go stubs, writing your first gRPC server; maps exactly to the XPLedgerService.CreditXP call in §21</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 3</span><span class="rl-ch-desc"><strong>gRPC Communication Patterns</strong> — unary, server streaming, client streaming, bidirectional; the streaming pattern used for real-time market data in the trading sections</span></div></div></div></div></div></div>
+
+      <!-- ===== ADVANCED CAREER LAYER START ===== -->
 <div class="acl-wrapper">
   <div class="acl-block acl-fail">
     <div class="acl-label">⚠ Common Mistakes / Where People Fail</div>
@@ -2267,7 +2514,7 @@ spec:
   </div>
 </div>
 <!-- ===== ADVANCED CAREER LAYER END ===== -->
-</div>
+    </div>
 
     <!-- 22. SUMMARY -->
     <div class="doc-section" id="s22">
@@ -2282,7 +2529,11 @@ spec:
       </div>
       <hr class="doc-divider">
       <p style="text-align:center;font-size:12px;color:var(--text3);font-style:italic;padding:12px 0">Pulse System Design Document · Version 1.0 · March 2025<br>This document is confidential and intended for internal engineering use only.</p>
-    </div>
+    
+
+      <div class="rl-block"><div class="rl-header"><span class="rl-header-icon">📚</span><span class="rl-header-title">Recommended Reading — Specific Chapters Only</span><span class="rl-header-count">2 books</span></div><div class="rl-body"><div class="rl-book"><div class="rl-book-num">📘</div><div class="rl-book-main"><div class="rl-book-title">A Philosophy of Software Design</div><div class="rl-book-meta"><span class="rl-book-author">John Ousterhout</span><span class="rl-book-sep">·</span><span class="rl-book-year">2nd Ed · Yaknyam Press · 2021</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>The Nature of Complexity</strong> — how complexity grows in systems over time; looking back at what you built with this lens</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 15</span><span class="rl-ch-desc"><strong>Write the Comments First</strong> — documentation as design; why the engineers who will maintain Pulse after you need it</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 20</span><span class="rl-ch-desc"><strong>Designing for Performance</strong> — the relationship between clean design and fast systems; how Pulse's modularity enables the optimisations in §19</span></div></div><div class="rl-note">Read this after completing the whole document. It reframes everything you built from a long-term maintainability perspective.</div></div></div><div class="rl-book"><div class="rl-book-num">📗</div><div class="rl-book-main"><div class="rl-book-title">The Staff Engineer's Path</div><div class="rl-book-meta"><span class="rl-book-author">Tanya Reilly</span><span class="rl-book-sep">·</span><span class="rl-book-year">1st Ed · O'Reilly · 2022</span></div><div class="rl-read-label">What to Read</div><div class="rl-chapters"><div class="rl-chapter"><span class="rl-ch-num ">Ch 1</span><span class="rl-ch-desc"><strong>What Would You Say You Do Here?</strong> — what staff-level engineering actually looks like vs senior; where this roadmap takes you</span></div><div class="rl-chapter"><span class="rl-ch-num ">Ch 4</span><span class="rl-ch-desc"><strong>Finite Time</strong> — how to prioritise technical work at scale; the skill that turns a good engineer into a great one</span></div></div><div class="rl-note">Read this when you have completed the weekly schedule in §WS. It shows you the level above the one this document gets you to.</div></div></div></div></div>
+
+      </div>
 
     
     <!-- ===== VISUAL PROGRESS MAP START ===== -->
@@ -3195,7 +3446,7 @@ spec:
     <button onclick="resetProgress()" style="font-size:10px;color:var(--text3);background:none;border:none;cursor:pointer;font-family:inherit">Reset</button>
   </div>
   <div class="pt-bar"><div class="pt-bar-fill" id="pt-bar-fill" style="width:0%"></div></div>
-</div>
+
 
 <script>
 (function(){
@@ -3290,6 +3541,7 @@ spec:
 })();
 </script>
 <!-- ===== PROGRESS TRACKER END ===== -->
+    </div><!-- /doc-content -->
 
 <button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <div id="toast-area"></div>
@@ -3722,38 +3974,6 @@ document.addEventListener('keydown',e=>{
 </script>
 <!-- ===== MEMORY SYSTEM END ===== -->
 
-</div></main>
-
-<script>
- with tracker ─────────────────────────────────────────
-function syncVPM() {
-  const STORE_KEY = 'pulse_progress_v1';
-  let progress = {};
-  try { progress = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch(e) {}
-  const SECTION_MAP = {
-    's1':'01','s2':'02','s3':'03','s4':'04','s5':'05','s6':'06',
-    's7':'07','s8':'08','s9':'09','s10':'10','s11':'11','s12':'12',
-    's13':'13','s14':'14','s15':'15','s16':'16','s17':'17','s18':'18',
-    's19':'19','s20':'20','s21':'21','s22':'22'
-  };
-  document.querySelectorAll('.vpm-card').forEach(card => {
-    const num = card.querySelector('.vpm-num')?.textContent;
-    const sid = Object.keys(SECTION_MAP).find(k => SECTION_MAP[k] === num);
-    if (sid && progress[sid]) {
-      card.classList.add('vpm-done');
-    } else {
-      card.classList.remove('vpm-done');
-    }
-  });
-}
-// Sync on load and whenever localStorage changes
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', syncVPM);
-} else { syncVPM(); }
-window.addEventListener('storage', syncVPM);
-// Also hook into the progress tracker checkboxes
-const origRender = window.renderTracker;
-</script>
 
 
 <script>
@@ -3882,5 +4102,7 @@ window._laymanSyncVPM = syncVPM;
 /* ===== LAYMAN FEATURES JS END ===== */
 </script>
 
+  </div><!-- /doc-content-wrapper -->
+  </div><!-- /main -->
 </body>
 </html>
